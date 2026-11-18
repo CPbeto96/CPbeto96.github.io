@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brasa Andina · Parrilla y cocina boliviana</title>
+<meta name="description" content="Sitio de demostración de un restaurante ficticio: parrilla y cocina boliviana.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #fbf6ef;
+    --dark: #1c1410;
+    --brown: #3b2a20;
+    --ember: #e8590c;
+    --ember-dark: #c2410c;
+    --gold: #f59f00;
+    --muted: #7a6a5e;
+    --line: #eadfd2;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', system-ui, sans-serif; background: var(--cream); color: var(--dark); line-height: 1.6; }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+  h1, h2, h3 { font-family: 'Playfair Display', Georgia, serif; line-height: 1.15; }
+
+  .demo-bar {
+    background: var(--dark); color: #d6c8bb; text-align: center; font-size: 0.8rem; padding: 8px 16px;
+  }
+  .demo-bar a { color: var(--gold); font-weight: 600; }
+
+  nav { position: absolute; left: 0; right: 0; z-index: 5; }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 80px; color: #fff; }
+  .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 800; }
+  .logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 30px; font-weight: 500; font-size: 0.95rem; }
+  .nav-links a { opacity: .9; }
+  .nav-links a:hover { opacity: 1; color: var(--gold); }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px; padding: 13px 26px; border-radius: 999px;
+    font-weight: 600; font-size: 0.95rem; transition: transform .15s, background .15s;
+  }
+  .btn-ember { background: var(--ember); color: #fff; }
+  .btn-ember:hover { background: var(--ember-dark); transform: translateY(-2px); }
+  .btn-outline { border: 2px solid rgba(255,255,255,.7); color: #fff; }
+  .btn-outline:hover { background: rgba(255,255,255,.12); }
+
+  .hero {
+    min-height: 88vh; display: flex; align-items: center; color: #fff; position: relative;
+    background:
+      radial-gradient(ellipse at 75% 60%, rgba(232,89,12,.55), transparent 55%),
+      radial-gradient(ellipse at 20% 90%, rgba(245,159,0,.25), transparent 50%),
+      linear-gradient(160deg, #2a1a12 0%, #120c09 100%);
+    overflow: hidden;
+  }
+  .hero .wrap { position: relative; z-index: 2; padding-top: 80px; }
+  .hero-emoji {
+    position: absolute; right: 6%; top: 50%; transform: translateY(-50%);
+    font-size: clamp(8rem, 22vw, 18rem); opacity: .9; filter: drop-shadow(0 20px 40px rgba(0,0,0,.5));
+  }
+  .kicker { color: var(--gold); letter-spacing: .2em; text-transform: uppercase; font-size: 0.8rem; font-weight: 600; }
+  .hero h1 { font-size: clamp(2.6rem, 6vw, 4.6rem); margin: 16px 0 20px; max-width: 640px; }
+  .hero p { font-size: 1.15rem; color: #e9dcd0; max-width: 520px; margin-bottom: 34px; }
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+  .hero-info { display: flex; gap: 36px; margin-top: 48px; flex-wrap: wrap; font-size: 0.92rem; color: #d6c8bb; }
+  .hero-info strong { display: block; color: #fff; font-size: 1rem; }
+
+  section { padding: 90px 0; }
+  .center { text-align: center; }
+  .eyebrow { color: var(--ember); font-weight: 600; letter-spacing: .15em; text-transform: uppercase; font-size: 0.8rem; }
+  h2 { font-size: clamp(2rem, 4vw, 2.8rem); margin: 10px 0 14px; }
+  .lead { color: var(--muted); max-width: 600px; }
+  .center .lead { margin: 0 auto; }
+
+  /* About */
+  .about { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .about-art {
+    aspect-ratio: 4/3; border-radius: 24px; display: grid; place-items: center; font-size: 7rem;
+    background: linear-gradient(135deg, #fde3c8, #f8b77c);
+    box-shadow: 0 30px 60px -20px rgba(59,42,32,.35);
+  }
+  .features { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 30px; }
+  .feature { display: flex; gap: 12px; align-items: flex-start; }
+  .feature span { font-size: 1.5rem; }
+  .feature strong { display: block; }
+  .feature small { color: var(--muted); }
+
+  /* Menu */
+  .menu-section { background: #fff; }
+  .tabs { display: flex; justify-content: center; gap: 10px; margin: 36px 0 40px; flex-wrap: wrap; }
+  .tab {
+    border: 1px solid var(--line); background: var(--cream); padding: 10px 22px; border-radius: 999px;
+    font-weight: 600; font-size: 0.92rem; cursor: pointer; font-family: inherit; color: var(--brown);
+  }
+  .tab.active { background: var(--dark); color: #fff; border-color: var(--dark); }
+  .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 56px; }
+  .menu-item { display: flex; gap: 16px; padding: 18px 0; border-bottom: 1px dashed var(--line); }
+  .menu-item .em { font-size: 2rem; width: 56px; height: 56px; border-radius: 14px; background: var(--cream); display: grid; place-items: center; flex-shrink: 0; }
+  .menu-item .info { flex: 1; }
+  .menu-item .top { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
+  .menu-item h3 { font-size: 1.15rem; }
+  .menu-item .price { font-weight: 700; color: var(--ember); white-space: nowrap; }
+  .menu-item p { color: var(--muted); font-size: 0.9rem; }
+  .pill { display: inline-block; font-size: 0.7rem; background: #fff1e6; color: var(--ember-dark); padding: 2px 8px; border-radius: 999px; font-weight: 600; margin-left: 6px; vertical-align: middle; font-family: 'Inter', sans-serif; }
+  .menu-panel { display: none; }
+  .menu-panel.active { display: grid; }
+
+  /* Reviews */
+  .reviews { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; margin-top: 44px; }
+  .review { background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: 28px; }
+  .stars { color: var(--gold); letter-spacing: 2px; margin-bottom: 12px; }
+  .review p { font-style: italic; color: var(--brown); margin-bottom: 16px; }
+  .review strong { font-size: 0.9rem; }
+
+  /* Reserve */
+  .reserve {
+    background: linear-gradient(135deg, var(--ember), #b4380a); color: #fff; border-radius: 28px;
+    padding: 60px 48px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center;
+  }
+  .reserve h2 { color: #fff; }
+  .reserve p { color: #ffe8d6; }
+  .reserve form { background: #fff; border-radius: 20px; padding: 28px; color: var(--dark); display: grid; gap: 14px; }
+  .reserve label { font-size: 0.85rem; font-weight: 600; display: grid; gap: 6px; }
+  .reserve input, .reserve select {
+    font: inherit; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--cream);
+  }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .reserve button { border: 0; cursor: pointer; justify-content: center; font-family: inherit; }
+  .note { font-size: 0.8rem; color: var(--muted); text-align: center; }
+
+  /* Location */
+  .location { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: stretch; }
+  .map {
+    border-radius: 24px; min-height: 320px; display: grid; place-items: center; text-align: center; color: var(--muted);
+    background:
+      repeating-linear-gradient(0deg, transparent 0 38px, rgba(59,42,32,.06) 38px 40px),
+      repeating-linear-gradient(90deg, transparent 0 38px, rgba(59,42,32,.06) 38px 40px),
+      #f3ebe1;
+    border: 1px solid var(--line);
+  }
+  .map .pin { font-size: 3rem; }
+  .info-list { display: grid; gap: 22px; align-content: center; }
+  .info-list div { display: flex; gap: 16px; }
+  .info-list span { font-size: 1.5rem; }
+  .info-list strong { display: block; margin-bottom: 2px; }
+  .info-list p { color: var(--muted); }
+
+  footer { background: var(--dark); color: #bfae9f; padding: 40px 0; text-align: center; font-size: 0.9rem; }
+  footer .logo { color: #fff; display: block; margin-bottom: 8px; }
+
+  .wa-float {
+    position: fixed; right: 20px; bottom: 20px; width: 58px; height: 58px; border-radius: 50%;
+    background: #25d366; color: #fff; display: grid; place-items: center; font-size: 1.7rem;
+    box-shadow: 0 10px 30px rgba(37,211,102,.45); z-index: 20;
+  }
+
+  @media (max-width: 860px) {
+    .nav-links { display: none; }
+    .hero-emoji { opacity: .18; right: -10%; }
+    .about, .location, .reserve { grid-template-columns: 1fr; }
+    .menu-grid { grid-template-columns: 1fr; }
+    .reserve { padding: 40px 22px; }
+    section { padding: 64px 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="demo-bar">Sitio de demostración · Negocio ficticio creado para mi portafolio · <a href="../../index.html">← Volver al portafolio</a></div>
+
+<nav>
+  <div class="wrap">
+    <a href="#" class="logo">Brasa <span>Andina</span></a>
+    <div class="nav-links">
+      <a href="#nosotros">Nosotros</a>
+      <a href="#menu">Menú</a>
+      <a href="#opiniones">Opiniones</a>
+      <a href="#ubicacion">Ubicación</a>
+    </div>
+    <a href="#reservas" class="btn btn-ember">Reservar</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-emoji" aria-hidden="true">🔥</div>
+  <div class="wrap">
+    <span class="kicker">Parrilla · Cocina boliviana</span>
+    <h1>El sabor del fuego, con alma andina</h1>
+    <p>Cortes a la brasa, platos tradicionales y el mejor ambiente para compartir en familia o con amigos.</p>
+    <div class="hero-actions">
+      <a href="#reservas" class="btn btn-ember">Reservar mesa</a>
+      <a href="#menu" class="btn btn-outline">Ver el menú</a>
+    </div>
+    <div class="hero-info">
+      <div><strong>Mar – Dom</strong>12:00 – 23:00</div>
+      <div><strong>Delivery</strong>Pedidos por WhatsApp</div>
+      <div><strong>★ 4,8</strong>Más de 300 opiniones</div>
+    </div>
+  </div>
+</header>
+
+<section id="nosotros">
+  <div class="wrap about">
+    <div class="about-art" aria-hidden="true">🥩</div>
+    <div>
+      <span class="eyebrow">Nuestra historia</span>
+      <h2>Tradición familiar desde 2012</h2>
+      <p class="lead">Empezamos con una pequeña parrilla en el patio de la abuela. Hoy seguimos cocinando con la misma receta: ingredientes locales, fuego lento y mucho cariño.</p>
+      <div class="features">
+        <div class="feature"><span>🌾</span><div><strong>Productos locales</strong><small>De productores bolivianos</small></div></div>
+        <div class="feature"><span>🔥</span><div><strong>Leña natural</strong><small>Sabor ahumado auténtico</small></div></div>
+        <div class="feature"><span>👨‍👩‍👧</span><div><strong>Ambiente familiar</strong><small>Zona de juegos para niños</small></div></div>
+        <div class="feature"><span>🎶</span><div><strong>Música en vivo</strong><small>Viernes y sábados</small></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="menu" class="menu-section">
+  <div class="wrap center">
+    <span class="eyebrow">Nuestro menú</span>
+    <h2>Platos para todos los gustos</h2>
+    <p class="lead">Precios en bolivianos. Consulta por opciones vegetarianas.</p>
+  </div>
+  <div class="wrap">
+    <div class="tabs" role="tablist">
+      <button class="tab active" data-tab="parrilla">Parrilla</button>
+      <button class="tab" data-tab="tipicos">Platos típicos</button>
+      <button class="tab" data-tab="bebidas">Bebidas</button>
+    </div>
+
+    <div class="menu-grid menu-panel active" id="parrilla">
+      <div class="menu-item"><div class="em">🥩</div><div class="info"><div class="top"><h3>Bife de chorizo <span class="pill">Favorito</span></h3><span class="price">Bs 95</span></div><p>400 g de corte premium, papas rústicas y ensalada.</p></div></div>
+      <div class="menu-item"><div class="em">🍖</div><div class="info"><div class="top"><h3>Parrillada para 2</h3><span class="price">Bs 180</span></div><p>Carne, chorizo, pollo, morcilla, yuca y llajua.</p></div></div>
+      <div class="menu-item"><div class="em">🍗</div><div class="info"><div class="top"><h3>Pollo a la brasa</h3><span class="price">Bs 55</span></div><p>Medio pollo marinado con hierbas, arroz y papas.</p></div></div>
+      <div class="menu-item"><div class="em">🌭</div><div class="info"><div class="top"><h3>Choripán artesanal</h3><span class="price">Bs 30</span></div><p>Chorizo casero en pan crocante con chimichurri.</p></div></div>
+    </div>
+
+    <div class="menu-grid menu-panel" id="tipicos">
+      <div class="menu-item"><div class="em">🍛</div><div class="info"><div class="top"><h3>Pique macho <span class="pill">Para compartir</span></h3><span class="price">Bs 85</span></div><p>Carne, salchicha, papas, huevo, locoto y tomate.</p></div></div>
+      <div class="menu-item"><div class="em">🥘</div><div class="info"><div class="top"><h3>Silpancho</h3><span class="price">Bs 45</span></div><p>Carne apanada, arroz, papa, huevo frito y ensalada.</p></div></div>
+      <div class="menu-item"><div class="em">🍲</div><div class="info"><div class="top"><h3>Sopa de maní</h3><span class="price">Bs 25</span></div><p>Receta tradicional con papas fritas y perejil.</p></div></div>
+      <div class="menu-item"><div class="em">🥟</div><div class="info"><div class="top"><h3>Salteñas (3 unid.)</h3><span class="price">Bs 30</span></div><p>De carne o pollo, jugosas y recién horneadas.</p></div></div>
+    </div>
+
+    <div class="menu-grid menu-panel" id="bebidas">
+      <div class="menu-item"><div class="em">🍹</div><div class="info"><div class="top"><h3>Mocochinchi</h3><span class="price">Bs 12</span></div><p>Refresco tradicional de durazno deshidratado.</p></div></div>
+      <div class="menu-item"><div class="em">🥤</div><div class="info"><div class="top"><h3>Jugo natural</h3><span class="price">Bs 15</span></div><p>Maracuyá, frutilla, piña o naranja.</p></div></div>
+      <div class="menu-item"><div class="em">🍺</div><div class="info"><div class="top"><h3>Cerveza nacional</h3><span class="price">Bs 20</span></div><p>Botella de 620 ml bien fría.</p></div></div>
+      <div class="menu-item"><div class="em">🍷</div><div class="info"><div class="top"><h3>Copa de vino tarijeño</h3><span class="price">Bs 25</span></div><p>Tinto o blanco de los valles de Tarija.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="opiniones">
+  <div class="wrap center">
+    <span class="eyebrow">Opiniones</span>
+    <h2>Lo que dicen nuestros clientes</h2>
+    <p class="lead">Opiniones de ejemplo para este sitio de demostración.</p>
+    <div class="reviews">
+      <div class="review"><div class="stars">★★★★★</div><p>"La parrillada para dos alcanza para tres. Atención excelente y la llajua es increíble."</p><strong>— Cliente de ejemplo</strong></div>
+      <div class="review"><div class="stars">★★★★★</div><p>"Fuimos en familia un domingo, los niños felices en la zona de juegos. Volveremos."</p><strong>— Cliente de ejemplo</strong></div>
+      <div class="review"><div class="stars">★★★★☆</div><p>"El mejor pique macho que probé. Los viernes con música en vivo es otro nivel."</p><strong>— Cliente de ejemplo</strong></div>
+    </div>
+  </div>
+</section>
+
+<section id="reservas">
+  <div class="wrap">
+    <div class="reserve">
+      <div>
+        <span class="eyebrow" style="color:#ffe0c2">Reservas</span>
+        <h2>Asegura tu mesa</h2>
+        <p>Completa el formulario y te confirmamos por WhatsApp en minutos. Para grupos de más de 10 personas, escríbenos directamente.</p>
+      </div>
+      <form id="reserva-form">
+        <label>Nombre<input type="text" name="nombre" placeholder="Tu nombre" required></label>
+        <div class="row">
+          <label>Fecha<input type="date" name="fecha" required></label>
+          <label>Hora<input type="time" name="hora" required></label>
+        </div>
+        <label>Personas
+          <select name="personas">
+            <option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7 o más</option>
+          </select>
+        </label>
+        <button type="submit" class="btn btn-ember">Reservar por WhatsApp</button>
+        <p class="note" id="form-note">Demo: en un sitio real esto abre WhatsApp con tu reserva.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section id="ubicacion">
+  <div class="wrap location">
+    <div class="map"><div><div class="pin">📍</div><p>Aquí va el mapa de Google<br>con la ubicación del local</p></div></div>
+    <div class="info-list">
+      <div><span>📍</span><div><strong>Dirección</strong><p>Av. Ejemplo #123, Cochabamba, Bolivia</p></div></div>
+      <div><span>🕑</span><div><strong>Horarios</strong><p>Martes a domingo, 12:00 – 23:00<br>Lunes cerrado</p></div></div>
+      <div><span>📞</span><div><strong>Teléfono y WhatsApp</strong><p>+591 700 00000 (número de ejemplo)</p></div></div>
+      <div><span>💳</span><div><strong>Pagos</strong><p>Efectivo, tarjeta y QR</p></div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="logo">Brasa Andina</span>
+  Sitio de demostración · Diseñado y desarrollado por Carlos Peralta
+</footer>
+
+<a href="#reservas" class="wa-float" aria-label="Reservar por WhatsApp">💬</a>
+
+<script>
+  document.querySelectorAll('.tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      document.querySelectorAll('.tab').forEach(function (t) { t.classList.remove('active'); });
+      document.querySelectorAll('.menu-panel').forEach(function (p) { p.classList.remove('active'); });
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab).classList.add('active');
+    });
+  });
+
+  document.getElementById('reserva-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var d = new FormData(this);
+    var msg = 'Hola, quiero reservar una mesa para ' + d.get('personas') + ' personas el ' + d.get('fecha') + ' a las ' + d.get('hora') + '. Nombre: ' + d.get('nombre');
+    document.getElementById('form-note').textContent = 'Demo — mensaje que se enviaría por WhatsApp: "' + msg + '"';
+  });
+</script>
+
+</body>
+</html>

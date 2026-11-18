@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nube Blanca · Clínica dental</title>
+<meta name="description" content="Sitio de demostración de una clínica dental ficticia.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6fbfd;
+    --white: #ffffff;
+    --ink: #0f2a3a;
+    --muted: #5b7384;
+    --teal: #0891b2;
+    --teal-dark: #0e7490;
+    --teal-soft: #e0f5fa;
+    --mint: #10b981;
+    --line: #dcebf1;
+    --radius: 20px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.65; }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+
+  .demo-bar { background: var(--ink); color: #b9d3df; text-align: center; font-size: 0.8rem; padding: 8px 16px; }
+  .demo-bar a { color: #67e8f9; font-weight: 600; }
+
+  nav { background: var(--white); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 10; }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+  .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.2rem; }
+  .logo-mark { width: 38px; height: 38px; border-radius: 12px; background: var(--teal); color: #fff; display: grid; place-items: center; font-size: 1.2rem; }
+  .nav-links { display: flex; gap: 28px; font-weight: 500; font-size: 0.95rem; color: var(--muted); }
+  .nav-links a:hover { color: var(--teal); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 13px 24px; border-radius: 12px; font-weight: 600; font-size: 0.95rem; transition: transform .15s, background .15s; border: 0; cursor: pointer; font-family: inherit; }
+  .btn-teal { background: var(--teal); color: #fff; }
+  .btn-teal:hover { background: var(--teal-dark); transform: translateY(-2px); }
+  .btn-light { background: var(--white); color: var(--ink); border: 1px solid var(--line); }
+  .btn-light:hover { border-color: var(--teal); }
+
+  .hero { padding: 72px 0 80px; }
+  .hero .wrap { display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: center; }
+  .pill { display: inline-flex; align-items: center; gap: 8px; background: var(--teal-soft); color: var(--teal-dark); padding: 6px 14px; border-radius: 999px; font-size: 0.85rem; font-weight: 600; }
+  .hero h1 { font-size: clamp(2.3rem, 5vw, 3.5rem); line-height: 1.12; letter-spacing: -0.03em; margin: 18px 0; }
+  .hero h1 span { color: var(--teal); }
+  .hero p { color: var(--muted); font-size: 1.1rem; margin-bottom: 30px; max-width: 520px; }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .trust { display: flex; gap: 28px; margin-top: 40px; flex-wrap: wrap; }
+  .trust div { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; color: var(--muted); }
+  .trust strong { color: var(--ink); display: block; font-size: 1.1rem; }
+  .trust .ic { width: 42px; height: 42px; border-radius: 12px; background: var(--white); border: 1px solid var(--line); display: grid; place-items: center; font-size: 1.2rem; }
+
+  .hero-card { position: relative; }
+  .hero-art {
+    aspect-ratio: 1/1; border-radius: 32px; display: grid; place-items: center; font-size: clamp(7rem, 16vw, 11rem);
+    background: radial-gradient(circle at 30% 30%, #cff4fc, #a5e7f5 45%, #67d4ea);
+    box-shadow: 0 40px 80px -30px rgba(8,145,178,.45);
+  }
+  .float-card {
+    position: absolute; background: var(--white); border-radius: 16px; padding: 14px 18px; box-shadow: 0 20px 40px -15px rgba(15,42,58,.25);
+    display: flex; align-items: center; gap: 12px; font-size: 0.88rem;
+  }
+  .float-card strong { display: block; }
+  .float-card small { color: var(--muted); }
+  .fc-1 { left: -20px; bottom: 40px; }
+  .fc-2 { right: -14px; top: 30px; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 0 4px rgba(16,185,129,.2); }
+
+  section { padding: 84px 0; }
+  .center { text-align: center; }
+  .eyebrow { color: var(--teal); font-weight: 700; font-size: 0.8rem; letter-spacing: .14em; text-transform: uppercase; }
+  h2 { font-size: clamp(1.8rem, 3.6vw, 2.6rem); letter-spacing: -0.02em; margin: 10px 0 12px; line-height: 1.2; }
+  .lead { color: var(--muted); max-width: 600px; }
+  .center .lead { margin: 0 auto; }
+
+  .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-top: 48px; }
+  .service { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; text-align: left; transition: transform .2s, box-shadow .2s; }
+  .service:hover { transform: translateY(-4px); box-shadow: 0 24px 48px -24px rgba(8,145,178,.35); }
+  .service .ic { width: 52px; height: 52px; border-radius: 14px; background: var(--teal-soft); display: grid; place-items: center; font-size: 1.5rem; margin-bottom: 16px; }
+  .service h3 { font-size: 1.1rem; margin-bottom: 6px; }
+  .service p { color: var(--muted); font-size: 0.92rem; }
+  .service .from { margin-top: 14px; font-weight: 700; color: var(--teal-dark); font-size: 0.92rem; }
+
+  .why { background: var(--white); }
+  .why .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+  .checks { display: grid; gap: 18px; margin-top: 28px; }
+  .check { display: flex; gap: 14px; }
+  .check .tick { width: 28px; height: 28px; flex-shrink: 0; border-radius: 50%; background: var(--mint); color: #fff; display: grid; place-items: center; font-size: 0.85rem; font-weight: 700; }
+  .check strong { display: block; }
+  .check p { color: var(--muted); font-size: 0.92rem; }
+  .numbers { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .num { background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; }
+  .num strong { font-size: 2.2rem; color: var(--teal); display: block; line-height: 1.1; }
+  .num span { color: var(--muted); font-size: 0.9rem; }
+
+  .team { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; margin-top: 48px; }
+  .doc { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  .doc-photo { height: 180px; display: grid; place-items: center; font-size: 4rem; }
+  .doc-body { padding: 20px 22px 24px; }
+  .doc-body h3 { font-size: 1.05rem; }
+  .doc-body small { color: var(--teal-dark); font-weight: 600; }
+  .doc-body p { color: var(--muted); font-size: 0.88rem; margin-top: 6px; }
+
+  .faq { max-width: 760px; margin: 40px auto 0; display: grid; gap: 12px; text-align: left; }
+  details { background: var(--white); border: 1px solid var(--line); border-radius: 14px; padding: 18px 22px; }
+  summary { cursor: pointer; font-weight: 600; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; color: var(--teal); font-size: 1.3rem; line-height: 1; }
+  details[open] summary::after { content: "–"; }
+  details p { color: var(--muted); margin-top: 10px; font-size: 0.95rem; }
+
+  .booking { background: linear-gradient(135deg, var(--teal), #155e75); border-radius: 28px; padding: 56px 44px; color: #fff; display: grid; grid-template-columns: 1fr 1.1fr; gap: 40px; align-items: center; }
+  .booking .eyebrow { color: #a5f3fc; }
+  .booking p { color: #cdeef6; }
+  .booking ul { list-style: none; margin-top: 22px; display: grid; gap: 10px; color: #e6f8fc; }
+  .booking form { background: var(--white); color: var(--ink); border-radius: 20px; padding: 28px; display: grid; gap: 14px; }
+  .booking label { display: grid; gap: 6px; font-size: 0.85rem; font-weight: 600; }
+  .booking input, .booking select { font: inherit; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .note { font-size: 0.8rem; color: var(--muted); text-align: center; }
+
+  footer { background: var(--ink); color: #a9c2cf; padding: 48px 0 32px; font-size: 0.9rem; }
+  .foot { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 32px; margin-bottom: 32px; }
+  .foot h4 { color: #fff; margin-bottom: 10px; font-size: 0.95rem; }
+  .foot p { line-height: 1.9; }
+  .foot .logo { color: #fff; margin-bottom: 10px; }
+  .copy { border-top: 1px solid rgba(255,255,255,.1); padding-top: 22px; text-align: center; font-size: 0.82rem; }
+
+  .wa-float { position: fixed; right: 20px; bottom: 20px; width: 58px; height: 58px; border-radius: 50%; background: #25d366; color: #fff; display: grid; place-items: center; font-size: 1.6rem; box-shadow: 0 10px 30px rgba(37,211,102,.4); z-index: 20; }
+
+  @media (max-width: 880px) {
+    .nav-links { display: none; }
+    .hero .wrap, .why .wrap, .booking { grid-template-columns: 1fr; }
+    .hero-card { max-width: 420px; margin: 0 auto; width: 100%; }
+    .fc-1 { left: 0; } .fc-2 { right: 0; }
+    .foot { grid-template-columns: 1fr; }
+    .booking { padding: 40px 22px; }
+    section { padding: 64px 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="demo-bar">Sitio de demostración · Clínica ficticia creada para mi portafolio · <a href="../../index.html">← Volver al portafolio</a></div>
+
+<nav>
+  <div class="wrap">
+    <a href="#" class="logo"><span class="logo-mark">🦷</span>Nube Blanca</a>
+    <div class="nav-links">
+      <a href="#servicios">Servicios</a>
+      <a href="#nosotros">Por qué elegirnos</a>
+      <a href="#equipo">Equipo</a>
+      <a href="#preguntas">Preguntas</a>
+    </div>
+    <a href="#citas" class="btn btn-teal">Agendar cita</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <span class="pill">✨ Primera consulta de evaluación sin costo</span>
+      <h1>Tu mejor sonrisa, <span>sin miedo al dentista</span></h1>
+      <p>Odontología moderna y sin dolor para toda la familia. Atención personalizada, tecnología actual y precios claros desde el primer día.</p>
+      <div class="hero-actions">
+        <a href="#citas" class="btn btn-teal">Agendar mi cita</a>
+        <a href="#servicios" class="btn btn-light">Ver tratamientos</a>
+      </div>
+      <div class="trust">
+        <div><span class="ic">⭐</span><div><strong>4,9 / 5</strong>Opiniones de pacientes</div></div>
+        <div><span class="ic">🏥</span><div><strong>10+ años</strong>De experiencia</div></div>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-art" aria-hidden="true">😁</div>
+      <div class="float-card fc-1"><span class="dot"></span><div><strong>Citas disponibles hoy</strong><small>Respuesta en minutos</small></div></div>
+      <div class="float-card fc-2">🛡️<div><strong>Esterilización total</strong><small>Protocolos certificados</small></div></div>
+    </div>
+  </div>
+</header>
+
+<section id="servicios">
+  <div class="wrap center">
+    <span class="eyebrow">Tratamientos</span>
+    <h2>Todo para tu salud dental en un solo lugar</h2>
+    <p class="lead">Precios de referencia en bolivianos. El costo final se define después de tu evaluación.</p>
+    <div class="services">
+      <div class="service"><div class="ic">🪥</div><h3>Limpieza dental</h3><p>Eliminación de sarro y manchas con ultrasonido. Recomendada cada 6 meses.</p><div class="from">Desde Bs 150</div></div>
+      <div class="service"><div class="ic">✨</div><h3>Blanqueamiento</h3><p>Dientes hasta 8 tonos más blancos en una sola sesión, sin sensibilidad.</p><div class="from">Desde Bs 900</div></div>
+      <div class="service"><div class="ic">😬</div><h3>Ortodoncia</h3><p>Brackets metálicos, estéticos o alineadores transparentes para alinear tu sonrisa.</p><div class="from">Desde Bs 4.500</div></div>
+      <div class="service"><div class="ic">🦷</div><h3>Implantes</h3><p>Reemplazo de piezas perdidas con resultados naturales y duraderos.</p><div class="from">Desde Bs 6.000</div></div>
+      <div class="service"><div class="ic">🩹</div><h3>Endodoncia</h3><p>Tratamiento de conducto para salvar tu diente, con anestesia y sin dolor.</p><div class="from">Desde Bs 700</div></div>
+      <div class="service"><div class="ic">👶</div><h3>Odontopediatría</h3><p>Atención especial para niños en un ambiente amigable y divertido.</p><div class="from">Desde Bs 120</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="nosotros" class="why">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Por qué elegirnos</span>
+      <h2>Atención que te hace sentir en confianza</h2>
+      <p class="lead">Sabemos que ir al dentista puede dar nervios. Por eso te explicamos cada paso y cuidamos tu comodidad.</p>
+      <div class="checks">
+        <div class="check"><span class="tick">✓</span><div><strong>Sin dolor</strong><p>Anestesia moderna y técnicas mínimamente invasivas.</p></div></div>
+        <div class="check"><span class="tick">✓</span><div><strong>Precios transparentes</strong><p>Presupuesto por escrito antes de empezar, sin sorpresas.</p></div></div>
+        <div class="check"><span class="tick">✓</span><div><strong>Pagos en cuotas</strong><p>Facilidades de pago para tratamientos largos.</p></div></div>
+      </div>
+    </div>
+    <div class="numbers">
+      <div class="num"><strong>5.000+</strong><span>Pacientes atendidos</span></div>
+      <div class="num"><strong>98%</strong><span>Recomendarían la clínica</span></div>
+      <div class="num"><strong>4</strong><span>Especialistas</span></div>
+      <div class="num"><strong>6 días</strong><span>De atención por semana</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="equipo">
+  <div class="wrap center">
+    <span class="eyebrow">Nuestro equipo</span>
+    <h2>Especialistas que cuidan tu sonrisa</h2>
+    <p class="lead">Profesionales de ejemplo para este sitio de demostración.</p>
+    <div class="team">
+      <div class="doc"><div class="doc-photo" style="background:#e0f5fa">👩‍⚕️</div><div class="doc-body"><h3>Dra. Ejemplo Uno</h3><small>Ortodoncia</small><p>Especialista en alineadores y brackets estéticos.</p></div></div>
+      <div class="doc"><div class="doc-photo" style="background:#dcfce7">👨‍⚕️</div><div class="doc-body"><h3>Dr. Ejemplo Dos</h3><small>Implantología</small><p>Rehabilitación oral e implantes dentales.</p></div></div>
+      <div class="doc"><div class="doc-photo" style="background:#fef3c7">👩‍⚕️</div><div class="doc-body"><h3>Dra. Ejemplo Tres</h3><small>Odontopediatría</small><p>Atención dental para niños de todas las edades.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="preguntas" style="background: var(--white);">
+  <div class="wrap center">
+    <span class="eyebrow">Preguntas frecuentes</span>
+    <h2>Resolvemos tus dudas</h2>
+    <div class="faq">
+      <details><summary>¿La primera consulta tiene costo?</summary><p>No. La evaluación inicial es gratuita e incluye revisión completa y un presupuesto por escrito.</p></details>
+      <details><summary>¿Atienden urgencias?</summary><p>Sí. Escríbenos por WhatsApp y te damos un espacio el mismo día para dolor intenso, golpes o fracturas.</p></details>
+      <details><summary>¿Qué formas de pago aceptan?</summary><p>Efectivo, tarjeta, transferencia y pago por QR. Para tratamientos largos ofrecemos cuotas.</p></details>
+      <details><summary>¿Cada cuánto debo hacerme una limpieza?</summary><p>Recomendamos una limpieza profesional cada 6 meses para prevenir caries y enfermedades de las encías.</p></details>
+    </div>
+  </div>
+</section>
+
+<section id="citas">
+  <div class="wrap">
+    <div class="booking">
+      <div>
+        <span class="eyebrow">Agenda tu cita</span>
+        <h2>Reserva en menos de un minuto</h2>
+        <p>Elige el tratamiento y el horario que prefieras. Te confirmamos por WhatsApp.</p>
+        <ul>
+          <li>📍 Calle Ejemplo #456, La Paz, Bolivia</li>
+          <li>🕑 Lun – Vie 8:00 – 19:00 · Sáb 9:00 – 13:00</li>
+          <li>📞 +591 700 00000 (número de ejemplo)</li>
+        </ul>
+      </div>
+      <form id="cita-form">
+        <label>Nombre completo<input type="text" name="nombre" placeholder="Tu nombre" required></label>
+        <label>Tratamiento
+          <select name="tratamiento">
+            <option>Evaluación gratuita</option>
+            <option>Limpieza dental</option>
+            <option>Blanqueamiento</option>
+            <option>Ortodoncia</option>
+            <option>Implantes</option>
+            <option>Urgencia</option>
+          </select>
+        </label>
+        <div class="row">
+          <label>Fecha<input type="date" name="fecha" required></label>
+          <label>Turno
+            <select name="turno"><option>Mañana</option><option>Tarde</option></select>
+          </label>
+        </div>
+        <button type="submit" class="btn btn-teal">Solicitar cita por WhatsApp</button>
+        <p class="note" id="cita-note">Demo: en un sitio real esto abre WhatsApp con tu solicitud.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <div class="logo"><span class="logo-mark">🦷</span>Nube Blanca</div>
+        <p>Clínica dental ficticia. Sitio de demostración creado para mi portafolio.</p>
+      </div>
+      <div><h4>Horarios</h4><p>Lun – Vie: 8:00 – 19:00<br>Sábado: 9:00 – 13:00<br>Domingo: cerrado</p></div>
+      <div><h4>Contacto</h4><p>Calle Ejemplo #456<br>La Paz, Bolivia<br>+591 700 00000</p></div>
+    </div>
+    <div class="copy">Diseñado y desarrollado por Carlos Peralta</div>
+  </div>
+</footer>
+
+<a href="#citas" class="wa-float" aria-label="Agendar por WhatsApp">💬</a>
+
+<script>
+  document.getElementById('cita-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var d = new FormData(this);
+    var msg = 'Hola, soy ' + d.get('nombre') + '. Quiero una cita para ' + d.get('tratamiento') + ' el ' + d.get('fecha') + ' en el turno de la ' + d.get('turno').toLowerCase() + '.';
+    document.getElementById('cita-note').textContent = 'Demo — mensaje que se enviaría por WhatsApp: "' + msg + '"';
+  });
+</script>
+
+</body>
+</html>
