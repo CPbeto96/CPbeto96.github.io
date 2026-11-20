@@ -1,397 +1,333 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Telar Urbano · Moda con identidad</title>
-<meta name="description" content="Sitio de demostración de una tienda de ropa ficticia con catálogo y pedidos por WhatsApp.">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Telar Urbano: ropa urbana hecha en La Paz</title>
+<meta name="description" content="Chaquetas, tejidos y zapatillas de diseño local. Arma tu pedido y envíalo por WhatsApp. Envío gratis desde Bs 300.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Telar Urbano: ropa urbana hecha en La Paz">
+<meta property="og:description" content="Chaquetas, tejidos y zapatillas de diseño local.">
+<meta property="og:image" content="share.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#efede8">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #faf7ff;
-    --ink: #17111f;
-    --muted: #6b6178;
-    --violet: #7c3aed;
-    --violet-dark: #6d28d9;
-    --lime: #c6f135;
-    --pink: #f472b6;
-    --line: #ebe4f5;
-    --card: #ffffff;
+    --bg: #efede8; --paper: #f8f7f4; --ink: #151515; --muted: #6b6862; --line: #d6d3cc;
+    --green: #1f4d36; --green-ink: #f3f1ea; --lime: #d8f45c;
+    --wrap: 1280px; --gut: clamp(16px, 3vw, 40px);
+    --font: "Archivo", system-ui, sans-serif;
+    --ease: cubic-bezier(.3, .7, .4, 1);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; }
-  a { color: inherit; text-decoration: none; }
-  button { font-family: inherit; cursor: pointer; }
-  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
-  h1, h2, h3, .logo { font-family: 'Space Grotesk', system-ui, sans-serif; letter-spacing: -0.02em; }
+  body { background: var(--bg); color: var(--ink); font: 400 17px/1.5 var(--font); font-stretch: 100%; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+  body.cart-open { overflow: hidden; }
+  a { color: inherit; }
+  img { display: block; max-width: 100%; height: auto; }
+  button, select { font: inherit; color: inherit; }
+  .wrap { width: min(var(--wrap), 100% - 2 * var(--gut)); margin-inline: auto; }
+  :focus-visible { outline: 3px solid var(--green); outline-offset: 3px; }
+  .skip { position: absolute; left: -999px; } .skip:focus { left: 12px; top: 12px; z-index: 99; background: #fff; padding: 8px 12px; }
 
-  .demo-bar { background: var(--ink); color: #cbbfe0; text-align: center; font-size: 0.8rem; padding: 8px 16px; }
-  .demo-bar a { color: var(--lime); font-weight: 700; }
+  /* tipografía condensada para titulares, como etiquetas de ropa */
+  .display { font-stretch: 68%; font-weight: 800; text-transform: uppercase; line-height: .88; letter-spacing: -0.01em; }
+  .h2 { font-stretch: 72%; font-weight: 800; text-transform: uppercase; font-size: clamp(44px, 6vw, 88px); line-height: .9; }
+  .label { font: 600 13px/1.2 var(--font); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  .lead { font-size: clamp(18px, 1.5vw, 21px); color: var(--muted); max-width: 520px; }
 
-  .promo { background: var(--lime); color: var(--ink); font-weight: 700; font-size: 0.85rem; text-align: center; padding: 8px 16px; }
+  .btn { display: inline-flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 26px; background: var(--ink); color: var(--bg); border: 0; border-radius: 0; font: 700 15px/1 var(--font); letter-spacing: .06em; text-transform: uppercase; text-decoration: none; cursor: pointer; transition: background .2s, transform .12s var(--ease); }
+  .btn:hover { background: var(--green); }
+  .btn:active { transform: scale(.97); }
+  .btn::after { content: "→"; transition: transform .25s var(--ease); }
+  .btn:hover::after { transform: translateX(4px); }
 
-  nav { background: rgba(250,247,255,.9); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 20; border-bottom: 1px solid var(--line); }
-  nav .wrap { height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-  .logo { font-size: 1.4rem; font-weight: 700; }
-  .logo span { color: var(--violet); }
-  .nav-links { display: flex; gap: 26px; font-weight: 500; color: var(--muted); }
-  .nav-links a:hover { color: var(--violet); }
-  .cart-btn {
-    position: relative; background: var(--ink); color: #fff; border: 0; border-radius: 999px;
-    padding: 11px 20px; font-weight: 700; display: inline-flex; gap: 8px; align-items: center;
-  }
-  .cart-count {
-    background: var(--lime); color: var(--ink); border-radius: 999px; min-width: 22px; height: 22px;
-    display: grid; place-items: center; font-size: 0.78rem; padding: 0 6px;
-  }
+  /* nav */
+  .nav { position: sticky; top: 0; z-index: 40; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+  .nav .wrap { height: 64px; display: flex; align-items: center; gap: 32px; }
+  .logo { font-stretch: 70%; font-weight: 800; font-size: 26px; text-transform: uppercase; text-decoration: none; letter-spacing: .01em; margin-right: auto; display: flex; align-items: center; gap: 10px; }
+  .logo i { width: 14px; height: 14px; background: var(--green); display: inline-block; }
+  .nav__links { display: flex; gap: 28px; font-weight: 600; font-size: 14px; letter-spacing: .06em; text-transform: uppercase; }
+  .nav__links a { text-decoration: none; position: relative; }
+  .nav__links a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 2px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform .25s var(--ease); }
+  .nav__links a:hover::after { transform: scaleX(1); }
+  .nav__cart { display: inline-flex; align-items: center; gap: 8px; background: none; border: 1.5px solid var(--ink); padding: 8px 14px; font-weight: 700; font-size: 14px; letter-spacing: .06em; text-transform: uppercase; cursor: pointer; }
+  .nav__cart b { background: var(--ink); color: var(--bg); min-width: 22px; height: 22px; display: inline-grid; place-items: center; font-size: 12px; }
+  @media (max-width: 760px) { .nav__links { display: none; } }
 
-  .hero { padding: 60px 0 40px; }
-  .hero-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; align-items: center; }
-  .tagline { display: inline-block; background: #ede4ff; color: var(--violet-dark); font-weight: 700; font-size: 0.8rem; padding: 6px 14px; border-radius: 999px; letter-spacing: .05em; }
-  .hero h1 { font-size: clamp(2.6rem, 6.5vw, 5rem); line-height: 1; margin: 18px 0 20px; }
-  .hero h1 .hl { background: var(--lime); padding: 0 10px; border-radius: 10px; display: inline-block; transform: rotate(-1.5deg); }
-  .hero p { color: var(--muted); font-size: 1.1rem; max-width: 480px; margin-bottom: 28px; }
-  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 26px; border-radius: 999px; font-weight: 700; border: 0; transition: transform .15s; }
-  .btn:hover { transform: translateY(-2px); }
-  .btn-violet { background: var(--violet); color: #fff; }
-  .btn-outline { border: 2px solid var(--ink); color: var(--ink); background: transparent; }
-  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  /* 1. inicio: el nombre de la categoría enorme y una foto que se abre con el scroll */
+  .hero { padding: clamp(28px, 4vw, 56px) 0 0; }
+  .hero h1 { font-size: clamp(64px, 13.4vw, 210px); }
+  .hero h1 span { color: var(--green); }
+  .hero__row { display: grid; grid-template-columns: 1fr auto; gap: 24px 48px; align-items: end; margin-top: clamp(20px, 3vw, 36px); }
+  .hero__row .lead { color: var(--ink); }
+  .hero__photo { margin-top: clamp(28px, 4vw, 48px); height: min(78vh, 820px); overflow: hidden; clip-path: inset(0 calc((1 - var(--p, 0) * 2.2) * 6%) 0 calc((1 - var(--p, 0) * 2.2) * 6%)); }
+  .hero__photo img { width: 100%; height: 118%; object-fit: cover; transform: translateY(calc(var(--p, 0) * -14%)); }
+  @media (max-width: 699px) { .hero__row { grid-template-columns: 1fr; } .hero__photo { height: 62vh; } }
 
-  .collage { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 14px; aspect-ratio: 1/1; }
-  .tile { border-radius: 26px; display: grid; place-items: center; font-size: clamp(3.5rem, 8vw, 6rem); position: relative; overflow: hidden; }
-  .tile.big { grid-row: span 2; }
-  .tile small { position: absolute; bottom: 14px; left: 14px; background: rgba(255,255,255,.85); font-size: 0.78rem; font-weight: 700; padding: 4px 10px; border-radius: 999px; font-family: 'DM Sans', sans-serif; }
+  /* cinta con lo que importa al comprar */
+  .band { background: var(--lime); overflow: hidden; border-block: 1.5px solid var(--ink); }
+  .band__run { display: flex; gap: 48px; width: max-content; padding: 16px 0; animation: run 28s linear infinite; font-stretch: 75%; font-weight: 800; font-size: 22px; text-transform: uppercase; white-space: nowrap; }
+  .band__run span::before { content: "✦"; margin-right: 48px; color: var(--green); }
+  @keyframes run { to { transform: translateX(-50%); } }
 
-  .perks { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 46px; }
-  .perk { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 18px; display: flex; gap: 12px; align-items: center; font-size: 0.9rem; }
-  .perk span { font-size: 1.5rem; }
-  .perk strong { display: block; font-size: 0.95rem; }
-  .perk small { color: var(--muted); }
+  /* 2. colección: galería horizontal fija mientras se baja */
+  #coleccion { height: 320vh; position: relative; background: var(--green); color: var(--green-ink); }
+  .look { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; display: flex; flex-direction: column; justify-content: center; gap: clamp(24px, 4vh, 48px); }
+  .look__head { display: flex; justify-content: space-between; align-items: end; gap: 24px; }
+  .look__head .label { color: color-mix(in srgb, var(--green-ink) 70%, transparent); }
+  .look__bar { width: 180px; height: 2px; background: color-mix(in srgb, var(--green-ink) 25%, transparent); position: relative; flex: none; }
+  .look__bar::after { content: ""; position: absolute; inset: 0; background: var(--lime); transform-origin: left; transform: scaleX(var(--p, 0)); }
+  .look__viewport { overflow: visible; padding-left: max(var(--gut), (100% - var(--wrap)) / 2); }
+  .look__track { display: flex; gap: clamp(16px, 2vw, 28px); width: max-content; will-change: transform; }
+  .look__card { position: relative; width: clamp(260px, 30vw, 440px); flex: none; }
+  .look__card--wide { width: clamp(320px, 46vw, 680px); }
+  .look__card figure { height: min(58vh, 560px); overflow: hidden; }
+  .look__card img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease); }
+  .look__card:hover img { transform: scale(1.04); }
+  .look__card p { display: flex; justify-content: space-between; margin-top: 12px; font-weight: 600; font-size: 15px; letter-spacing: .04em; text-transform: uppercase; }
+  .look__end { width: clamp(260px, 30vw, 420px); flex: none; align-self: center; display: grid; gap: 20px; padding-right: var(--gut); }
+  .look__end .btn { background: var(--lime); color: var(--ink); justify-self: start; }
 
-  section { padding: 70px 0; }
-  .head { display: flex; justify-content: space-between; align-items: end; gap: 20px; flex-wrap: wrap; margin-bottom: 28px; }
-  .head h2 { font-size: clamp(1.9rem, 4vw, 2.8rem); line-height: 1.1; }
-  .head p { color: var(--muted); }
-  .filters { display: flex; gap: 8px; flex-wrap: wrap; }
-  .filter { border: 1px solid var(--line); background: var(--card); color: var(--ink); padding: 9px 18px; border-radius: 999px; font-weight: 600; font-size: 0.9rem; }
-  .filter.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+  /* 3. catálogo */
+  .shop { padding: clamp(80px, 10vw, 140px) 0; }
+  .shop__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 40px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { background: none; border: 1.5px solid var(--ink); padding: 9px 16px; font-weight: 600; font-size: 14px; letter-spacing: .05em; text-transform: uppercase; cursor: pointer; transition: background .2s, color .2s; }
+  .chip[aria-pressed="true"], .chip:hover { background: var(--ink); color: var(--bg); }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px 24px; }
+  .product { display: flex; flex-direction: column; transform: translateY(calc((1 - var(--e, 1)) * 48px)); opacity: calc(.2 + var(--e, 1) * .8); }
+  .product[hidden] { display: none; }
+  .product__img { position: relative; aspect-ratio: 4 / 5; background: var(--paper); overflow: hidden; }
+  .product__img img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s var(--ease); }
+  .product:hover .product__img img { transform: scale(1.05); }
+  .tag { position: absolute; left: 12px; top: 12px; background: var(--lime); padding: 5px 9px; font-weight: 700; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
+  .product h3 { margin-top: 16px; font-stretch: 85%; font-weight: 700; font-size: 22px; line-height: 1.15; text-transform: uppercase; }
+  .product__meta { display: flex; justify-content: space-between; color: var(--muted); font-size: 15px; margin-top: 4px; }
+  .product__meta strong { color: var(--ink); font-size: 18px; }
+  .product__buy { display: grid; grid-template-columns: 96px 1fr; gap: 8px; margin-top: 14px; }
+  .product select { height: 48px; border: 1.5px solid var(--ink); background: transparent; padding: 0 10px; font-weight: 600; }
+  .add { height: 48px; border: 0; background: var(--ink); color: var(--bg); font-weight: 700; font-size: 14px; letter-spacing: .06em; text-transform: uppercase; cursor: pointer; transition: background .2s, transform .12s var(--ease); }
+  .add:hover { background: var(--green); }
+  .add:active { transform: scale(.97); }
+  .add.is-done { background: var(--green); }
+  @media (max-width: 999px) { .grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 599px) { .grid { grid-template-columns: 1fr; } }
 
-  .products { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 20px; }
-  .product { background: var(--card); border: 1px solid var(--line); border-radius: 22px; overflow: hidden; display: flex; flex-direction: column; transition: transform .2s, box-shadow .2s; }
-  .product:hover { transform: translateY(-4px); box-shadow: 0 24px 50px -28px rgba(124,58,237,.45); }
-  .p-img { aspect-ratio: 1/1; display: grid; place-items: center; font-size: 5rem; position: relative; }
-  .badge { position: absolute; top: 12px; left: 12px; font-size: 0.72rem; font-weight: 700; padding: 4px 10px; border-radius: 999px; background: var(--ink); color: #fff; }
-  .badge.sale { background: var(--pink); }
-  .badge.new { background: var(--lime); color: var(--ink); }
-  .p-body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
-  .p-body h3 { font-size: 1.05rem; }
-  .prices { display: flex; gap: 8px; align-items: baseline; }
-  .price { font-weight: 700; font-size: 1.1rem; }
-  .old { color: var(--muted); text-decoration: line-through; font-size: 0.9rem; }
-  .sizes { display: flex; gap: 6px; }
-  .size { border: 1px solid var(--line); background: var(--bg); border-radius: 8px; min-width: 36px; height: 32px; font-size: 0.8rem; font-weight: 700; color: var(--ink); }
-  .size.active { background: var(--violet); color: #fff; border-color: var(--violet); }
-  .add { margin-top: auto; background: var(--ink); color: #fff; border: 0; border-radius: 12px; padding: 11px; font-weight: 700; }
-  .add:hover { background: var(--violet); }
-  .add.done { background: #16a34a; }
+  /* 4. cómo comprar */
+  .how { background: var(--ink); color: var(--bg); padding: clamp(80px, 10vw, 140px) 0; }
+  .how .label { color: #a8a59e; }
+  .how__list { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 56px; border-top: 1px solid #3a3a3a; counter-reset: s; }
+  .how__list li { list-style: none; padding: 28px 24px 0 0; transform: translateY(calc((1 - var(--e, 1)) * 40px)); opacity: calc(.15 + var(--e, 1) * .85); }
+  .how__list li::before { counter-increment: s; content: "0" counter(s); display: block; font-stretch: 65%; font-weight: 800; font-size: 72px; line-height: 1; color: var(--lime); margin-bottom: 18px; }
+  .how__list strong { display: block; font-size: 20px; margin-bottom: 6px; }
+  .how__list span { color: #a8a59e; font-size: 16px; }
+  @media (max-width: 899px) { .how__list { grid-template-columns: 1fr 1fr; gap: 0 24px; } .how__list li { padding-bottom: 28px; } }
 
-  .banner { background: var(--ink); color: #fff; border-radius: 30px; padding: 56px 44px; display: grid; grid-template-columns: 1.3fr 1fr; gap: 30px; align-items: center; position: relative; overflow: hidden; }
-  .banner::after { content: ""; position: absolute; width: 360px; height: 360px; border-radius: 50%; background: radial-gradient(circle, rgba(124,58,237,.55), transparent 65%); right: -80px; top: -120px; }
-  .banner h2 { font-size: clamp(1.9rem, 4vw, 2.8rem); line-height: 1.1; position: relative; z-index: 1; }
-  .banner h2 em { font-style: normal; color: var(--lime); }
-  .banner p { color: #cbbfe0; margin-top: 12px; position: relative; z-index: 1; }
-  .steps { display: grid; gap: 12px; position: relative; z-index: 1; }
-  .steps div { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12); border-radius: 16px; padding: 14px 18px; display: flex; gap: 12px; align-items: center; }
-  .steps b { background: var(--lime); color: var(--ink); width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; flex-shrink: 0; }
+  /* 5. showroom */
+  .visit { padding: clamp(80px, 10vw, 140px) 0; }
+  .visit__grid { display: grid; grid-template-columns: 5fr 7fr; gap: 48px; align-items: start; }
+  .visit__grid > div { display: grid; gap: 20px; }
+  .visit address { font-style: normal; font-stretch: 72%; font-weight: 800; font-size: clamp(40px, 5vw, 72px); line-height: .92; text-transform: uppercase; }
+  .hours { display: grid; grid-template-columns: auto 1fr; gap: 8px 28px; border-top: 1px solid var(--line); padding-top: 18px; }
+  .hours dt { color: var(--muted); }
+  .link { font-weight: 700; text-transform: uppercase; letter-spacing: .06em; font-size: 14px; text-underline-offset: 5px; }
+  .visit figure { overflow: hidden; aspect-ratio: 3 / 2; }
+  .visit figure img { width: 100%; height: 100%; object-fit: cover; transform: scale(calc(1.12 - var(--e, 1) * .12)); }
+  @media (max-width: 799px) { .visit__grid { grid-template-columns: 1fr; } }
 
-  footer { padding: 40px 0; text-align: center; color: var(--muted); font-size: 0.9rem; border-top: 1px solid var(--line); margin-top: 40px; }
-  footer .logo { display: block; color: var(--ink); margin-bottom: 6px; }
+  footer { background: var(--green); color: var(--green-ink); padding: 56px 0 28px; }
+  .foot__name { font-stretch: 62%; font-weight: 800; text-transform: uppercase; font-size: clamp(64px, 15.5vw, 236px); line-height: .82; letter-spacing: -0.01em; }
+  .foot__row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; margin-top: 32px; padding-top: 18px; border-top: 1px solid color-mix(in srgb, var(--green-ink) 25%, transparent); font-size: 13px; color: color-mix(in srgb, var(--green-ink) 75%, transparent); }
 
-  /* Cart drawer */
-  .overlay { position: fixed; inset: 0; background: rgba(23,17,31,.45); opacity: 0; pointer-events: none; transition: opacity .25s; z-index: 40; }
-  .overlay.open { opacity: 1; pointer-events: auto; }
-  .drawer { position: fixed; top: 0; right: 0; height: 100%; width: min(420px, 100%); background: var(--card); z-index: 50; transform: translateX(100%); transition: transform .3s; display: flex; flex-direction: column; }
-  .drawer.open { transform: translateX(0); }
-  .drawer-head { display: flex; justify-content: space-between; align-items: center; padding: 22px 24px; border-bottom: 1px solid var(--line); }
-  .drawer-head h3 { font-size: 1.3rem; }
-  .close { background: var(--bg); border: 1px solid var(--line); width: 38px; height: 38px; border-radius: 50%; font-size: 1.1rem; }
-  .items { flex: 1; overflow-y: auto; padding: 12px 24px; }
-  .empty { text-align: center; color: var(--muted); padding: 60px 0; }
-  .empty span { font-size: 3rem; display: block; margin-bottom: 10px; }
-  .item { display: flex; gap: 14px; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--line); }
-  .item .em { width: 60px; height: 60px; border-radius: 14px; display: grid; place-items: center; font-size: 2rem; flex-shrink: 0; }
-  .item .info { flex: 1; }
-  .item strong { display: block; font-size: 0.95rem; }
-  .item small { color: var(--muted); }
-  .qty { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
-  .qty button { width: 28px; height: 28px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); font-weight: 700; }
-  .item .sub { font-weight: 700; }
-  .drawer-foot { padding: 20px 24px 24px; border-top: 1px solid var(--line); display: grid; gap: 12px; }
-  .total { display: flex; justify-content: space-between; font-size: 1.1rem; font-weight: 700; }
-  .wa { background: #25d366; color: #fff; border: 0; border-radius: 14px; padding: 15px; font-weight: 700; font-size: 1rem; }
-  .wa:disabled { opacity: .5; cursor: not-allowed; }
-  .preview { background: var(--bg); border: 1px dashed var(--line); border-radius: 12px; padding: 12px; font-size: 0.82rem; color: var(--muted); white-space: pre-line; }
+  /* carrito lateral */
+  .cart { position: fixed; inset: 0; z-index: 60; pointer-events: none; }
+  .cart__scrim { position: absolute; inset: 0; background: rgba(21, 21, 21, .45); opacity: 0; transition: opacity .3s var(--ease); }
+  .cart__panel { position: absolute; top: 0; right: 0; bottom: 0; width: min(420px, 100%); background: var(--paper); display: flex; flex-direction: column; transform: translateX(100%); transition: transform .4s var(--ease); }
+  .cart.is-open { pointer-events: auto; }
+  .cart.is-open .cart__scrim { opacity: 1; }
+  .cart.is-open .cart__panel { transform: none; }
+  .cart__top { display: flex; justify-content: space-between; align-items: center; padding: 20px 24px; border-bottom: 1px solid var(--line); }
+  .cart__top h2 { font-stretch: 72%; font-weight: 800; font-size: 30px; text-transform: uppercase; }
+  .cart__close { background: none; border: 0; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; font-size: 13px; cursor: pointer; padding: 8px; }
+  .cart__list { flex: 1; overflow: auto; list-style: none; padding: 8px 24px; }
+  .cart__list li { display: grid; grid-template-columns: 64px 1fr auto; gap: 14px; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .cart__list img { width: 64px; height: 80px; object-fit: cover; }
+  .cart__list span { display: block; color: var(--muted); font-size: 14px; }
+  .cart__list button { background: none; border: 0; text-decoration: underline; font-size: 13px; color: var(--muted); cursor: pointer; }
+  .cart__empty { display: block !important; color: var(--muted); padding: 24px 0; border: 0 !important; }
+  .cart__foot { padding: 20px 24px 28px; border-top: 1px solid var(--line); display: grid; gap: 14px; }
+  .cart__total { display: flex; justify-content: space-between; font-size: 18px; }
+  .cart__send { justify-content: center; }
+  .cart__send[aria-disabled] { opacity: .35; pointer-events: none; }
 
-  .toast { position: fixed; bottom: 24px; left: 50%; transform: translate(-50%, 120px); background: var(--ink); color: #fff; padding: 12px 22px; border-radius: 999px; font-weight: 600; font-size: 0.9rem; transition: transform .3s; z-index: 60; }
-  .toast.show { transform: translate(-50%, 0); }
-
-  @media (max-width: 900px) {
-    .nav-links { display: none; }
-    .hero-grid, .banner { grid-template-columns: 1fr; }
-    .perks { grid-template-columns: 1fr 1fr; }
-    .banner { padding: 40px 24px; }
-  }
-  @media (max-width: 480px) {
-    .perks { grid-template-columns: 1fr; }
-    .products { grid-template-columns: 1fr 1fr; gap: 12px; }
-    .p-img { font-size: 3.5rem; }
-    .p-body { padding: 12px; }
-    .size { min-width: 30px; height: 28px; }
+  @media (prefers-reduced-motion: reduce) {
+    .band__run { animation: none; }
+    .btn, .add, .chip, .cart__panel, .cart__scrim, .product__img img, .look__card img { transition: none; }
   }
 </style>
 </head>
 <body>
-
-<div class="demo-bar">Sitio de demostración · Tienda ficticia creada para mi portafolio · <a href="../../index.html">← Volver al portafolio</a></div>
-<div class="promo">🚚 Envío gratis en compras desde Bs 300 · Pagos con QR</div>
-
-<nav>
+<a class="skip" href="#catalogo">Saltar al catálogo</a>
+<header class="nav">
   <div class="wrap">
-    <a href="#" class="logo">Telar<span>Urbano</span></a>
-    <div class="nav-links">
+    <a class="logo" href="#top"><i aria-hidden="true"></i>Telar Urbano</a>
+    <nav class="nav__links" aria-label="Principal">
+      <a href="#coleccion">Colección</a>
       <a href="#catalogo">Catálogo</a>
       <a href="#como-comprar">Cómo comprar</a>
-    </div>
-    <button class="cart-btn" id="open-cart" aria-label="Abrir carrito">🛍️ Carrito <span class="cart-count" id="cart-count">0</span></button>
-  </div>
-</nav>
-
-<header class="hero">
-  <div class="wrap">
-    <div class="hero-grid">
-      <div>
-        <span class="tagline">NUEVA COLECCIÓN · VERANO 2026</span>
-        <h1>Viste con <span class="hl">identidad</span> propia</h1>
-        <p>Ropa urbana con diseño local y telas de calidad. Elige tus prendas, arma tu pedido y confírmalo por WhatsApp en segundos.</p>
-        <div class="hero-actions">
-          <a href="#catalogo" class="btn btn-violet">Ver catálogo</a>
-          <a href="#como-comprar" class="btn btn-outline">Cómo comprar</a>
-        </div>
-      </div>
-      <div class="collage" aria-hidden="true">
-        <div class="tile big" style="background:#e9dcff">🧥<small>Chaquetas</small></div>
-        <div class="tile" style="background:#d9f99d">👟<small>Zapatillas</small></div>
-        <div class="tile" style="background:#fbcfe8">👗<small>Vestidos</small></div>
-      </div>
-    </div>
-    <div class="perks">
-      <div class="perk"><span>🚚</span><div><strong>Envíos a todo el país</strong><small>De 1 a 3 días hábiles</small></div></div>
-      <div class="perk"><span>🔄</span><div><strong>Cambios gratis</strong><small>Hasta 7 días después</small></div></div>
-      <div class="perk"><span>📱</span><div><strong>Pago con QR</strong><small>También efectivo y tarjeta</small></div></div>
-      <div class="perk"><span>💬</span><div><strong>Atención por WhatsApp</strong><small>Te asesoramos con tu talla</small></div></div>
-    </div>
+      <a href="#showroom">Showroom</a>
+    </nav>
+    <button class="nav__cart" type="button" data-open-cart aria-controls="carrito">Carrito <b data-count>0</b></button>
   </div>
 </header>
 
-<section id="catalogo">
-  <div class="wrap">
-    <div class="head">
-      <div>
-        <h2>Catálogo</h2>
-        <p>Precios en bolivianos. Elige tu talla y agrega al carrito.</p>
-      </div>
-      <div class="filters" id="filters">
-        <button class="filter active" data-cat="todo">Todo</button>
-        <button class="filter" data-cat="poleras">Poleras</button>
-        <button class="filter" data-cat="abrigos">Abrigos</button>
-        <button class="filter" data-cat="pantalones">Pantalones</button>
-        <button class="filter" data-cat="accesorios">Accesorios</button>
+<main id="top">
+  <section class="hero" aria-labelledby="hero-h">
+    <div class="wrap">
+      <p class="label">Nueva colección · Verano 2026</p>
+      <h1 id="hero-h" class="display">Ropa urbana<br>hecha en <span>La Paz</span></h1>
+      <div class="hero__row">
+        <p class="lead">Chaquetas, tejidos y zapatillas de diseño local. Elige tu talla, arma tu pedido y envíalo por WhatsApp. Envío gratis desde <span data-assumed>Bs 300</span>.</p>
+        <a class="btn" href="#catalogo">Ver catálogo</a>
       </div>
     </div>
-    <div class="products" id="products"></div>
-  </div>
-</section>
+    <div class="hero__photo"><img src="assets/img/photo-f4350032-1280.jpg" width="1280" height="960" alt="Percheros con camisas, vestidos y tejidos de colores" fetchpriority="high"></div>
+  </section>
 
-<section id="como-comprar">
-  <div class="wrap">
-    <div class="banner">
-      <div>
-        <h2>Comprar es <em>así de fácil</em></h2>
-        <p>Sin registros ni formularios largos. Tu pedido llega directo a nuestro WhatsApp y te confirmamos stock y envío al instante.</p>
+  <div class="band" aria-label="Envíos, cambios y pagos">
+    <div class="band__run" aria-hidden="true">
+      <span>Envíos a todo el país en 1 a 3 días</span><span>Cambios gratis hasta 7 días</span><span>Pago con QR, efectivo o tarjeta</span><span>Te ayudamos con tu talla</span>
+      <span>Envíos a todo el país en 1 a 3 días</span><span>Cambios gratis hasta 7 días</span><span>Pago con QR, efectivo o tarjeta</span><span>Te ayudamos con tu talla</span>
+    </div>
+    <p class="skip">Envíos a todo el país en 1 a 3 días. Cambios gratis hasta 7 días. Pago con QR, efectivo o tarjeta.</p>
+  </div>
+
+  <!-- colección: la fila de fotos avanza de lado mientras se baja -->
+  <section id="coleccion" aria-labelledby="look-h">
+    <div class="look">
+      <div class="wrap look__head">
+        <div><p class="label">Colección verano 2026</p><h2 id="look-h" class="h2">Jean, lana<br>y lona</h2></div>
+        <div class="look__bar" aria-hidden="true"></div>
       </div>
-      <div class="steps">
-        <div><b>1</b>Elige tus prendas y tallas</div>
-        <div><b>2</b>Revisa tu carrito</div>
-        <div><b>3</b>Envía el pedido por WhatsApp</div>
-        <div><b>4</b>Paga con QR y recibe en casa</div>
+      <div class="look__viewport">
+        <div class="look__track">
+          <div class="look__card look__card--wide"><figure><img src="assets/img/photo-f194512665-960.jpg" width="960" height="640" alt="Chaqueta de jean puesta, con botones metálicos" loading="lazy"></figure><p><span>Chaqueta de jean</span><span>01</span></p></div>
+          <div class="look__card"><figure><img src="assets/img/photo-f128695951-500.jpg" width="500" height="750" alt="Mujer con un suéter tejido azul en un bosque" loading="lazy"></figure><p><span>Tejido azul</span><span>02</span></p></div>
+          <div class="look__card"><figure><img src="assets/img/photo-f27105697-960.jpg" width="960" height="636" alt="Puño de una chaqueta de jean oscuro con broches" loading="lazy"></figure><p><span>Detalle de broches</span><span>03</span></p></div>
+          <div class="look__card"><figure><img src="assets/img/photo-f69723992-500.jpg" width="500" height="410" alt="Camisas azules a rayas y cuadros colgadas" loading="lazy"></figure><p><span>Camisas a rayas</span><span>04</span></p></div>
+          <div class="look__card look__card--wide"><figure><img src="assets/img/photo-f192687656-960.jpg" width="960" height="1067" alt="Suéter tejido a mano con rayas de colores" loading="lazy"></figure><p><span>Suéter a rayas</span><span>05</span></p></div>
+          <div class="look__end"><p class="lead" style="color:var(--green-ink)">Doce prendas, pocas unidades por talla.</p><a class="btn" href="#catalogo">Comprar la colección</a></div>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+
+  <section class="shop" id="catalogo" aria-labelledby="shop-h">
+    <div class="wrap">
+      <div class="shop__head">
+        <div><p class="label">Catálogo</p><h2 id="shop-h" class="h2" style="margin-top:10px">Elige tu prenda</h2></div>
+        <div class="chips" role="group" aria-label="Filtrar por tipo">
+          <button class="chip" type="button" data-cat="todo" aria-pressed="true">Todo</button>
+          <button class="chip" type="button" data-cat="abrigos" aria-pressed="false">Abrigos</button>
+          <button class="chip" type="button" data-cat="tejidos" aria-pressed="false">Tejidos</button>
+          <button class="chip" type="button" data-cat="calzado" aria-pressed="false">Calzado</button>
+        </div>
+      </div>
+      <div class="grid">
+        <article class="product" data-reveal data-cat="abrigos" data-name="Chaqueta de jean clásica" data-price="320">
+          <div class="product__img"><span class="tag">Nuevo</span><img src="assets/img/photo-f104519018-960.jpg" width="960" height="720" alt="Chaqueta de jean celeste colgada en una pared blanca" loading="lazy"></div>
+          <h3>Chaqueta de jean clásica</h3>
+          <p class="product__meta"><span>Jean 100% algodón</span><strong data-assumed>Bs 320</strong></p>
+          <div class="product__buy"><select aria-label="Talla de la chaqueta"><option>S</option><option selected>M</option><option>L</option><option>XL</option></select><button class="add" type="button">Agregar al carrito</button></div>
+        </article>
+        <article class="product" data-reveal data-cat="tejidos" data-name="Suéter tejido a rayas" data-price="260">
+          <div class="product__img"><img src="assets/img/photo-f192687656-500.jpg" width="500" height="556" alt="Suéter tejido con rayas rosas, celestes y amarillas" loading="lazy"></div>
+          <h3>Suéter tejido a rayas</h3>
+          <p class="product__meta"><span>Tejido a mano</span><strong data-assumed>Bs 260</strong></p>
+          <div class="product__buy"><select aria-label="Talla del suéter a rayas"><option>S</option><option selected>M</option><option>L</option></select><button class="add" type="button">Agregar al carrito</button></div>
+        </article>
+        <article class="product" data-reveal data-cat="tejidos" data-name="Suéter de lana con guarda" data-price="340">
+          <div class="product__img"><img src="assets/img/photo-f118271221-500.jpg" width="500" height="500" alt="Suéter de lana azul marino con guarda roja y blanca" loading="lazy"></div>
+          <h3>Suéter de lana con guarda</h3>
+          <p class="product__meta"><span>Lana de oveja</span><strong data-assumed>Bs 340</strong></p>
+          <div class="product__buy"><select aria-label="Talla del suéter de lana"><option>S</option><option selected>M</option><option>L</option><option>XL</option></select><button class="add" type="button">Agregar al carrito</button></div>
+        </article>
+        <article class="product" data-reveal data-cat="calzado" data-name="Zapatillas de lona blancas" data-price="280">
+          <div class="product__img"><span class="tag">Más vendido</span><img src="assets/img/photo-f184936789-960.jpg" width="960" height="720" alt="Zapatillas de lona blancas con cordones" loading="lazy"></div>
+          <h3>Zapatillas de lona blancas</h3>
+          <p class="product__meta"><span>Lona y suela de goma</span><strong data-assumed>Bs 280</strong></p>
+          <div class="product__buy"><select aria-label="Talla de las zapatillas de lona"><option>37</option><option>38</option><option>39</option><option selected>40</option><option>41</option><option>42</option></select><button class="add" type="button">Agregar al carrito</button></div>
+        </article>
+        <article class="product" data-reveal data-cat="calzado" data-name="Zapatillas de cuero" data-price="390">
+          <div class="product__img"><img src="assets/img/photo-f132322934-960.jpg" width="960" height="960" alt="Zapatillas de cuero blancas y negras sobre fondo de dos colores" loading="lazy"></div>
+          <h3>Zapatillas de cuero</h3>
+          <p class="product__meta"><span>Cuero por dentro y por fuera</span><strong data-assumed>Bs 390</strong></p>
+          <div class="product__buy"><select aria-label="Talla de las zapatillas de cuero"><option>37</option><option>38</option><option>39</option><option selected>40</option><option>41</option><option>42</option></select><button class="add" type="button">Agregar al carrito</button></div>
+        </article>
+        <article class="product" data-reveal data-cat="tejidos" data-name="Suéter crudo liviano" data-price="210">
+          <div class="product__img"><img src="assets/img/photo-f64814717-960.jpg" width="960" height="632" alt="Suéter liviano color crudo sobre fondo blanco" loading="lazy"></div>
+          <h3>Suéter crudo liviano</h3>
+          <p class="product__meta"><span>Algodón tejido</span><strong data-assumed>Bs 210</strong></p>
+          <div class="product__buy"><select aria-label="Talla del suéter crudo"><option>S</option><option selected>M</option><option>L</option></select><button class="add" type="button">Agregar al carrito</button></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="how" id="como-comprar" aria-labelledby="how-h">
+    <div class="wrap">
+      <p class="label">Cómo comprar</p>
+      <h2 id="how-h" class="h2" style="margin-top:10px">Sin registros.<br>Sin formularios.</h2>
+      <ol class="how__list">
+        <li data-reveal><strong>Elige tus prendas</strong><span>Con su talla, desde el catálogo.</span></li>
+        <li data-reveal><strong>Revisa el carrito</strong><span>Ves el total antes de enviar.</span></li>
+        <li data-reveal><strong>Envía por WhatsApp</strong><span>Te confirmamos stock y envío.</span></li>
+        <li data-reveal><strong>Paga y recibe</strong><span>Con QR, en 1 a 3 días hábiles.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="visit" id="showroom" aria-labelledby="visit-h">
+    <div class="wrap visit__grid">
+      <div>
+        <p class="label" id="visit-h">Showroom</p>
+        <address>Sopocachi,<br>La Paz</address>
+        <a class="link" href="https://www.openstreetmap.org/search?query=Sopocachi%20La%20Paz">Ver la zona →</a>
+        <p class="lead">Ven a probarte las prendas antes de comprar. Te guardamos la talla si la pides por WhatsApp.</p>
+        <dl class="hours" data-assumed><dt>Lunes a viernes</dt><dd>10:00 a 20:00</dd><dt>Sábado</dt><dd>10:00 a 18:00</dd><dt>Domingo</dt><dd>Cerrado</dd></dl>
+      </div>
+      <figure data-reveal><img src="assets/img/photo-f21582490-960.jpg" width="960" height="636" alt="Calle del centro de La Paz con edificios y casas de colores" loading="lazy"></figure>
+    </div>
+  </section>
+</main>
 
 <footer>
-  <span class="logo">TelarUrbano</span>
-  Tienda ficticia · Sitio de demostración diseñado y desarrollado por Carlos Peralta
+  <div class="wrap">
+    <p class="foot__name" aria-hidden="true">Telar Urbano</p>
+    <div class="foot__row">
+      <span>© 2026 Telar Urbano · Tienda ficticia, proyecto de portafolio de <a href="../../index.html">Carlos Peralta</a></span>
+      <a href="credits.html">Fotografías vía Wikimedia Commons</a>
+    </div>
+  </div>
 </footer>
 
-<div class="overlay" id="overlay"></div>
-<aside class="drawer" id="drawer" aria-label="Carrito de compras">
-  <div class="drawer-head">
-    <h3>Tu carrito</h3>
-    <button class="close" id="close-cart" aria-label="Cerrar carrito">✕</button>
-  </div>
-  <div class="items" id="items"></div>
-  <div class="drawer-foot">
-    <div class="total"><span>Total</span><span id="total">Bs 0</span></div>
-    <button class="wa" id="send" disabled>Enviar pedido por WhatsApp</button>
-    <div class="preview" id="preview" hidden></div>
+<aside class="cart" id="carrito" aria-hidden="true" aria-label="Carrito">
+  <div class="cart__scrim"></div>
+  <div class="cart__panel" role="dialog" aria-modal="true" aria-labelledby="cart-h">
+    <div class="cart__top"><h2 id="cart-h">Tu carrito</h2><button class="cart__close" type="button">Cerrar</button></div>
+    <ul class="cart__list"></ul>
+    <div class="cart__foot">
+      <p class="cart__total"><span>Total</span><strong>Bs 0</strong></p>
+      <a class="btn cart__send" href="#carrito" target="_blank" rel="noopener">Enviar pedido por WhatsApp</a>
+      <p class="label" style="text-transform:none;letter-spacing:0">Se abre WhatsApp con tu pedido escrito. Tú eliges a quién enviarlo.</p>
+    </div>
   </div>
 </aside>
 
-<div class="toast" id="toast"></div>
-
-<script>
-  var PRODUCTS = [
-    { id: 1, name: 'Polera Oversize Andes', cat: 'poleras', price: 89, emoji: '👕', bg: '#ede4ff', badge: 'new' },
-    { id: 2, name: 'Polera Básica Algodón', cat: 'poleras', price: 59, old: 75, emoji: '👕', bg: '#d9f99d', badge: 'sale' },
-    { id: 3, name: 'Chaqueta Denim Clásica', cat: 'abrigos', price: 249, emoji: '🧥', bg: '#dbeafe' },
-    { id: 4, name: 'Polerón Urbano Capucha', cat: 'abrigos', price: 179, old: 210, emoji: '🧥', bg: '#fbcfe8', badge: 'sale' },
-    { id: 5, name: 'Jean Recto Azul', cat: 'pantalones', price: 199, emoji: '👖', bg: '#e0e7ff' },
-    { id: 6, name: 'Jogger Cargo', cat: 'pantalones', price: 159, emoji: '👖', bg: '#fef3c7', badge: 'new' },
-    { id: 7, name: 'Gorra Bordada', cat: 'accesorios', price: 69, emoji: '🧢', bg: '#ffe4e6', sizes: ['Única'] },
-    { id: 8, name: 'Mochila Tejida', cat: 'accesorios', price: 189, emoji: '🎒', bg: '#ccfbf1', sizes: ['Única'] }
-  ];
-  var DEFAULT_SIZES = ['S', 'M', 'L', 'XL'];
-  var cart = [];
-  var selected = {};
-
-  var $ = function (id) { return document.getElementById(id); };
-  var bs = function (n) { return 'Bs ' + n.toLocaleString('es-BO'); };
-
-  function renderProducts(cat) {
-    var list = PRODUCTS.filter(function (p) { return cat === 'todo' || p.cat === cat; });
-    $('products').innerHTML = list.map(function (p) {
-      var sizes = p.sizes || DEFAULT_SIZES;
-      if (!selected[p.id]) selected[p.id] = sizes.length === 1 ? sizes[0] : 'M';
-      var badge = p.badge === 'sale' ? '<span class="badge sale">Oferta</span>' : p.badge === 'new' ? '<span class="badge new">Nuevo</span>' : '';
-      return '<article class="product">' +
-        '<div class="p-img" style="background:' + p.bg + '">' + badge + p.emoji + '</div>' +
-        '<div class="p-body">' +
-          '<h3>' + p.name + '</h3>' +
-          '<div class="prices"><span class="price">' + bs(p.price) + '</span>' + (p.old ? '<span class="old">' + bs(p.old) + '</span>' : '') + '</div>' +
-          '<div class="sizes">' + sizes.map(function (s) {
-            return '<button class="size' + (selected[p.id] === s ? ' active' : '') + '" data-id="' + p.id + '" data-size="' + s + '">' + s + '</button>';
-          }).join('') + '</div>' +
-          '<button class="add" data-add="' + p.id + '">Agregar al carrito</button>' +
-        '</div></article>';
-    }).join('');
-  }
-
-  function addToCart(id) {
-    var p = PRODUCTS.find(function (x) { return x.id === id; });
-    var size = selected[id];
-    var line = cart.find(function (l) { return l.id === id && l.size === size; });
-    if (line) line.qty++; else cart.push({ id: id, size: size, qty: 1 });
-    renderCart();
-    toast(p.emoji + ' ' + p.name + ' (' + size + ') agregado');
-  }
-
-  function renderCart() {
-    var count = cart.reduce(function (a, l) { return a + l.qty; }, 0);
-    var total = cart.reduce(function (a, l) { return a + l.qty * PRODUCTS.find(function (p) { return p.id === l.id; }).price; }, 0);
-    $('cart-count').textContent = count;
-    $('total').textContent = bs(total);
-    $('send').disabled = cart.length === 0;
-    $('preview').hidden = true;
-    if (!cart.length) {
-      $('items').innerHTML = '<div class="empty"><span>🛍️</span>Tu carrito está vacío.<br>Agrega prendas desde el catálogo.</div>';
-      return;
-    }
-    $('items').innerHTML = cart.map(function (l, i) {
-      var p = PRODUCTS.find(function (x) { return x.id === l.id; });
-      return '<div class="item">' +
-        '<div class="em" style="background:' + p.bg + '">' + p.emoji + '</div>' +
-        '<div class="info"><strong>' + p.name + '</strong><small>Talla ' + l.size + ' · ' + bs(p.price) + '</small>' +
-          '<div class="qty"><button data-dec="' + i + '" aria-label="Quitar uno">−</button><span>' + l.qty + '</span><button data-inc="' + i + '" aria-label="Agregar uno">+</button></div></div>' +
-        '<span class="sub">' + bs(p.price * l.qty) + '</span></div>';
-    }).join('');
-  }
-
-  function orderMessage() {
-    var lines = cart.map(function (l) {
-      var p = PRODUCTS.find(function (x) { return x.id === l.id; });
-      return '• ' + l.qty + ' x ' + p.name + ' (talla ' + l.size + ') — ' + bs(p.price * l.qty);
-    });
-    return 'Hola, quiero hacer este pedido:\n' + lines.join('\n') + '\nTotal: ' + $('total').textContent;
-  }
-
-  function toast(msg) {
-    var t = $('toast');
-    t.textContent = msg;
-    t.classList.add('show');
-    clearTimeout(t._h);
-    t._h = setTimeout(function () { t.classList.remove('show'); }, 1800);
-  }
-
-  function setCart(open) {
-    $('drawer').classList.toggle('open', open);
-    $('overlay').classList.toggle('open', open);
-  }
-
-  $('filters').addEventListener('click', function (e) {
-    var b = e.target.closest('.filter');
-    if (!b) return;
-    document.querySelectorAll('.filter').forEach(function (f) { f.classList.remove('active'); });
-    b.classList.add('active');
-    renderProducts(b.dataset.cat);
-  });
-
-  $('products').addEventListener('click', function (e) {
-    var s = e.target.closest('.size');
-    if (s) {
-      selected[s.dataset.id] = s.dataset.size;
-      s.parentElement.querySelectorAll('.size').forEach(function (x) { x.classList.remove('active'); });
-      s.classList.add('active');
-      return;
-    }
-    var a = e.target.closest('[data-add]');
-    if (a) {
-      addToCart(Number(a.dataset.add));
-      a.classList.add('done');
-      a.textContent = '✓ Agregado';
-      setTimeout(function () { a.classList.remove('done'); a.textContent = 'Agregar al carrito'; }, 1200);
-    }
-  });
-
-  $('items').addEventListener('click', function (e) {
-    var inc = e.target.closest('[data-inc]');
-    var dec = e.target.closest('[data-dec]');
-    if (inc) cart[inc.dataset.inc].qty++;
-    if (dec) {
-      var i = Number(dec.dataset.dec);
-      cart[i].qty--;
-      if (cart[i].qty <= 0) cart.splice(i, 1);
-    }
-    if (inc || dec) renderCart();
-  });
-
-  $('send').addEventListener('click', function () {
-    var p = $('preview');
-    p.textContent = 'Demo — en un sitio real se abriría WhatsApp con este mensaje:\n\n' + orderMessage();
-    p.hidden = false;
-  });
-
-  $('open-cart').addEventListener('click', function () { setCart(true); });
-  $('close-cart').addEventListener('click', function () { setCart(false); });
-  $('overlay').addEventListener('click', function () { setCart(false); });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setCart(false); });
-
-  renderProducts('todo');
-  renderCart();
-</script>
-
+<script type="module" src="tienda.js"></script>
 </body>
 </html>

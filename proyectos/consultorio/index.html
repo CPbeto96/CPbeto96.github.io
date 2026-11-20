@@ -1,260 +1,417 @@
 <!doctype html>
-<html lang="es" data-type="service" data-radius="soft" data-buttons="solid" data-motion>
+<html lang="es">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Estudio Dental Ayni: clínica dental en Sopocachi, La Paz</title>
-<meta name="description" content="Limpieza, coronas, implantes, endodoncia y odontología para niños en Sopocachi. Primera evaluación sin costo. Pide tu cita en línea.">
+<meta name="description" content="Implantes, coronas, limpieza, endodoncia y odontología para niños en Sopocachi, La Paz. Primera evaluación sin costo.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Estudio Dental Ayni: clínica dental en Sopocachi">
-<meta property="og:description" content="Primera evaluación sin costo y presupuesto por escrito.">
+<meta property="og:description" content="Implantes, coronas y limpieza con precisión de laboratorio. Primera evaluación sin costo.">
 <meta property="og:image" content="share.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<meta name="theme-color" content="#ffffff">
-<!-- <link rel="canonical" href="https://[dominio del cliente]/"> -->
-<meta name="site-kind" content="other">
-<meta name="page-type" content="service">
+<meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Instrument+Sans:wdth,wght@75..100,400..600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/system.css">
-<link rel="stylesheet" href="assets/ui/cards.css">
-<link rel="stylesheet" href="assets/motion/motion.css">
-<link rel="stylesheet" href="assets/backgrounds/backgrounds.css">
-<link rel="stylesheet" href="assets/layout/layout.css">
-<link rel="stylesheet" href="assets/icons/icon.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..600&family=Inter+Tight:wght@500..700&display=swap" rel="stylesheet">
+<script type="importmap">
+{ "imports": {
+  "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+} }
+</script>
 <style>
-:root {
-  --p-bg: #ffffff; --p-surface: #f4f4f4; --p-ink: #111111; --p-muted: #6b6b6b;
-  --p-accent: #1a4be0; --p-accent-ink: #ffffff; --p-action: #1a4be0; --p-action-ink: #ffffff;
-  --p-inv-bg: #111111; --p-inv-surface: #1e1e1e; --p-inv-ink: #ffffff; --p-inv-muted: #9a9a9a;
-  --p-inv-accent: #ffffff; --p-inv-accent-ink: #111111; --p-inv-action: #ffffff; --p-inv-action-ink: #111111;
-  --font-display: "Instrument Serif", Georgia, serif;
-  --font-text: "Instrument Sans", system-ui, sans-serif;
-  --display-weight: 400;
-  --display-tracking: -0.012em;
-  --display-tracking-xl: -0.016em;
-  --ly-scale: 1.12;
-}
-</style>
-<script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
-<script>document.documentElement.classList.add('mo-js');setTimeout(()=>document.documentElement.classList.add('mo-safe'),2500)</script>
-<link rel="modulepreload" href="assets/moments/moments.js">
-<link rel="modulepreload" href="assets/moments/lib.js">
-<link rel="modulepreload" href="assets/moments/word-highlight/moment.js">
-<style>
-  /* page CSS: the hero poster's crop, the steps' photo panels, the booking form's ground */
-  .hero--film .hero__media img { object-position: 50% 40%; }
-  .steps .panel { --p-h: 336px; }
-  @media (min-width: 1024px) and (max-width: 1279px) { .steps .grid > .card.span-4:has(> .panel) { grid-column: auto / span 4 !important; } }
-  .head-row { align-items: start; }
-  .head-row > * { margin: 0; }
-  .form-card { background: var(--g-alt, var(--p-surface)); padding: 40px; border-radius: var(--r-lg); }
-  .form-card .field--full { grid-column: 1 / -1; }
-  .faq summary { font: var(--display-weight) 24px/1.2 var(--font-display); letter-spacing: var(--display-tracking); }
-  .faq-photo { margin-bottom: 32px; aspect-ratio: 3 / 1; }
-  .citas-info address { font: var(--display-weight) clamp(26px, 3.4vw, 48px)/1.05 var(--font-display); letter-spacing: var(--display-tracking); font-style: normal; }
-  .citas-where { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
-  .citas-info { display: flex; flex-direction: column; align-self: stretch; }
-  .citas-photo { display: block; flex: 1 1 auto; min-height: 240px; margin-top: 8px; overflow: hidden; border-radius: var(--r-lg); position: relative; }
-  .citas-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-  @media (min-width: 640px) and (max-width: 1023px) { .faq-photo { aspect-ratio: 4 / 3; } }
-  @media (min-width: 1024px) { .citas-photo { flex: none; height: calc(var(--pl-room) - 300px); } }
-  @media (max-width: 1023px) { .citas-photo { flex: none; aspect-ratio: 16 / 9; min-height: 0; } }
-  @media (max-width: 639px) {
-    .form-card { padding: 24px; }
-    .citas-where { grid-template-columns: 1fr; }
-    .steps .panel { --p-h: 288px; }
-    .citas-photo { aspect-ratio: 4 / 5; }
-    .faq-photo { aspect-ratio: 16 / 9; }
+  :root {
+    --bg: #fbfbfd; --surface: #f2f2f5; --ink: #1d1d1f; --muted: #6e6e73; --line: #d2d2d7;
+    --accent: #0066cc; --accent-hover: #0077ed;
+    --black: #000; --ink-dark: #f5f5f7; --muted-dark: #a1a1a6;
+    --wrap: 1120px; --gut: 22px;
+    --display: "Inter Tight", "Inter", system-ui, sans-serif;
+    --text: "Inter", system-ui, sans-serif;
+    --r-xl: 28px; --r-lg: 18px;
+    --ease: cubic-bezier(.25, .1, .25, 1);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { background: var(--bg); color: var(--ink); font: 400 17px/1.47 var(--text); letter-spacing: -0.022em; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; height: auto; }
+  .wrap { width: min(var(--wrap), 100% - 2 * var(--gut)); margin-inline: auto; }
+  .skip { position: absolute; left: -999px; top: 8px; background: #fff; padding: 8px 12px; border-radius: 8px; z-index: 100; }
+  .skip:focus { left: 8px; }
+  :focus-visible { outline: 3px solid rgba(0, 102, 204, .55); outline-offset: 3px; border-radius: 6px; }
+
+  /* tipografía: tracking negativo que crece con el tamaño */
+  h1, h2, h3 { font-family: var(--display); font-weight: 600; color: inherit; }
+  .t-hero { font-size: clamp(42px, 5.6vw, 80px); line-height: 1.02; letter-spacing: -0.035em; }
+  .t-xl { font-size: clamp(36px, 5.2vw, 64px); line-height: 1.05; letter-spacing: -0.03em; }
+  .t-lg { font-size: clamp(28px, 3.4vw, 40px); line-height: 1.1; letter-spacing: -0.025em; }
+  .t-lead { font-size: clamp(19px, 1.6vw, 22px); line-height: 1.4; letter-spacing: -0.015em; color: var(--muted); }
+  .eyebrow { font: 600 14px/1.3 var(--text); letter-spacing: 0; color: var(--muted); }
+
+  /* botones: píldora azul y enlace con flecha */
+  .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 22px; border-radius: 980px; background: var(--accent); color: #fff; font: 500 17px/1 var(--text); letter-spacing: -0.02em; border: 0; cursor: pointer; transition: background .2s var(--ease), transform .12s var(--ease); }
+  .btn:hover { background: var(--accent-hover); }
+  .btn:active { transform: scale(.97); }
+  .btn--sm { min-height: 30px; padding: 0 14px; font-size: 13px; }
+  .more { color: var(--accent); font-weight: 400; display: inline-flex; align-items: center; gap: 2px; }
+  .more::after { content: "›"; font-size: 1.15em; transition: transform .2s var(--ease); }
+  .more:hover { text-decoration: underline; }
+  .more:hover::after { transform: translateX(2px); }
+  .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 26px; }
+
+  /* barra de navegación translúcida */
+  .nav { position: fixed; inset: 0 0 auto; z-index: 50; height: 52px; background: rgba(251, 251, 253, .72); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid rgba(0, 0, 0, .08); transition: background .3s var(--ease), color .3s var(--ease), border-color .3s; }
+  .nav--dark { background: rgba(22, 22, 23, .72); color: var(--ink-dark); border-color: rgba(255, 255, 255, .08); }
+  .nav .wrap { height: 100%; display: flex; align-items: center; gap: 28px; }
+  .logo { display: flex; align-items: center; gap: 8px; font: 600 15px/1 var(--display); letter-spacing: -0.02em; margin-right: auto; }
+  .logo svg { width: 18px; height: 18px; }
+  .nav__links { display: flex; gap: 26px; font-size: 13px; letter-spacing: -0.01em; }
+  .nav__links a { opacity: .82; transition: opacity .2s; }
+  .nav__links a:hover { opacity: 1; }
+  @media (max-width: 760px) { .nav__links { display: none; } }
+
+  /* ---------- 1. el implante en 3D, fijo mientras se recorre la sección ---------- */
+  #implante { position: relative; height: 560vh; background: var(--black); color: var(--ink-dark); }
+  .stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+  .stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 1.2s var(--ease); }
+  #implante.is-ready canvas { opacity: 1; }
+  .stage__glow { position: absolute; inset: 0; background: radial-gradient(60% 55% at 70% 55%, rgba(80, 130, 255, .16), transparent 70%); pointer-events: none; }
+  .fallback { position: absolute; inset: 0; display: none; }
+  .fallback img { width: 100%; height: 100%; object-fit: cover; opacity: .5; }
+  #implante.no-webgl .fallback { display: block; }
+  .panels { position: absolute; inset: 0; pointer-events: none; }
+  .panel { position: absolute; left: max(var(--gut), (100% - var(--wrap)) / 2); top: 50%; width: min(560px, 46%); translate: 0 -50%; visibility: hidden; opacity: 0; will-change: opacity, transform; }
+  .panel:first-child { visibility: visible; opacity: 1; }
+  .panel > * + * { margin-top: 18px; }
+  .panel .t-lead { color: var(--muted-dark); }
+  .panel .actions, .panel a { pointer-events: auto; }
+  .panel .eyebrow { color: #86868b; }
+  .panel .price { font: 600 17px/1.3 var(--text); color: var(--ink-dark); }
+  .grad { background: linear-gradient(100deg, #f5f5f7 20%, #9cc0ff 75%, #c8b3ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .part { position: absolute; left: 0; top: 0; display: flex; align-items: center; gap: 10px; font: 500 14px/1.2 var(--text); color: var(--ink-dark); opacity: 0; white-space: nowrap; pointer-events: none; }
+  .part::before { content: ""; width: 34px; height: 1px; background: rgba(255, 255, 255, .5); }
+  .scroll-hint { position: absolute; left: 50%; bottom: 28px; translate: -50% 0; font-size: 12px; color: #86868b; letter-spacing: .02em; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .scroll-hint::after { content: ""; width: 1px; height: 28px; background: linear-gradient(#86868b, transparent); }
+  @media (max-width: 699px) {
+    .panel { left: var(--gut); right: var(--gut); width: auto; top: auto; bottom: 7svh; translate: none; }
+    .panel > * + * { margin-top: 12px; }
+    .part { font-size: 12px; }
+    .part::before { width: 18px; }
+    .scroll-hint { display: none; }
+  }
+
+  /* ---------- secciones claras ---------- */
+  section.light { padding: clamp(96px, 13vw, 160px) 0; }
+  .head { text-align: center; max-width: 780px; margin: 0 auto clamp(48px, 6vw, 72px); }
+  .head > * + * { margin-top: 16px; }
+
+  /* 2. tratamientos: mosaico con fotos que se inclinan en 3D al entrar */
+  .tiles { display: grid; grid-template-columns: repeat(6, 1fr); gap: 20px; perspective: 1400px; }
+  .tile { grid-column: span 2; background: #fff; border-radius: var(--r-xl); overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 1px 2px rgba(0,0,0,.04);
+    transform-origin: 50% 100%;
+    transform: rotateX(calc((1 - var(--e, 1)) * 22deg)) translateY(calc((1 - var(--e, 1)) * 60px)) scale(calc(.94 + var(--e, 1) * .06));
+    opacity: calc(.25 + var(--e, 1) * .75); will-change: transform; }
+  .tile--wide { grid-column: span 3; }
+  .tile__img { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--surface); }
+  .tile--wide .tile__img { aspect-ratio: 16 / 10; }
+  .tile__img img { position: absolute; inset: -8% 0; width: 100%; height: 116%; object-fit: cover; transform: translateY(calc((var(--p, .5) - .5) * -12%)) scale(1.04); transition: scale .6s var(--ease); }
+  .tile:hover .tile__img img { scale: 1.03; }
+  .tile__body { padding: 24px 28px 28px; display: grid; gap: 6px; }
+  .tile__body h3 { font-size: 24px; line-height: 1.15; letter-spacing: -0.025em; }
+  .tile__body p { color: var(--muted); font-size: 16px; }
+  .tile__price { margin-top: 8px; font-weight: 600; font-size: 16px; }
+  @media (max-width: 899px) { .tiles { grid-template-columns: 1fr 1fr; } .tile, .tile--wide { grid-column: span 1; } .tile--wide:first-child { grid-column: span 2; } }
+  @media (max-width: 599px) { .tiles { grid-template-columns: 1fr; gap: 16px; } .tile, .tile--wide, .tile--wide:first-child { grid-column: auto; } .tile__body { padding: 20px 22px 24px; } }
+
+  /* 3. la frase que se ilumina con el scroll */
+  .statement { padding: clamp(80px, 12vw, 150px) 0; }
+  .statement p { font: 600 clamp(32px, 4.6vw, 58px)/1.12 var(--display); letter-spacing: -0.03em; max-width: 980px; }
+  .statement .w { color: #d2d2d7; transition: color .35s var(--ease); }
+  .statement .w.on { color: var(--ink); }
+  .statement strong .w.on { color: var(--accent); }
+
+  /* 4. el consultorio: la foto se endereza y crece como una pantalla que se abre */
+  .room { padding-bottom: clamp(96px, 13vw, 160px); }
+  .room__frame { perspective: 1600px; margin-top: 56px; }
+  .room__img { border-radius: var(--r-xl); overflow: hidden; aspect-ratio: 16 / 9; transform-origin: 50% 100%;
+    transform: rotateX(calc((1 - var(--e, 1)) * 34deg)) scale(calc(.78 + var(--e, 1) * .22)); box-shadow: 0 40px 80px -40px rgba(0,0,0,.35); will-change: transform; }
+  .room__img img { width: 100%; height: 100%; object-fit: cover; transform: scale(calc(1.18 - var(--p, .5) * .18)); }
+  .facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 56px; }
+  .facts div { border-top: 1px solid var(--line); padding-top: 20px; }
+  .facts strong { display: block; font: 600 clamp(28px, 3vw, 40px)/1.1 var(--display); letter-spacing: -0.03em; margin-bottom: 6px; }
+  .facts span { color: var(--muted); font-size: 16px; }
+  @media (max-width: 699px) { .facts { grid-template-columns: 1fr; gap: 0; } .facts div { padding: 18px 0; } .room__img { aspect-ratio: 4 / 5; } }
+
+  /* 5. la primera visita, en tres pasos */
+  .dark { background: var(--black); color: var(--ink-dark); }
+  .dark .t-lead, .dark .eyebrow { color: var(--muted-dark); }
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .step { background: #161617; border-radius: var(--r-xl); overflow: hidden; transform: translateY(calc((1 - var(--e, 1)) * 80px)); opacity: calc(.2 + var(--e, 1) * .8); }
+  .step:nth-child(2) { transform: translateY(calc((1 - var(--e, 1)) * 140px)); }
+  .step:nth-child(3) { transform: translateY(calc((1 - var(--e, 1)) * 200px)); }
+  .step__body { padding: 28px 28px 24px; }
+  .step__num { font: 600 14px/1 var(--text); color: #86868b; }
+  .step h3 { font-size: 26px; letter-spacing: -0.025em; margin: 10px 0 8px; }
+  .step p { color: var(--muted-dark); font-size: 16px; }
+  .step img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  @media (max-width: 899px) { .steps { grid-template-columns: 1fr; max-width: 560px; margin: 0 auto; } .step, .step:nth-child(2), .step:nth-child(3) { transform: none; opacity: 1; } }
+
+  /* 6. preguntas */
+  .faq { display: grid; grid-template-columns: 1fr 1.4fr; gap: 56px; align-items: start; }
+  .faq__list details { border-bottom: 1px solid var(--line); }
+  .faq__list summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; gap: 24px; padding: 22px 0; font: 600 19px/1.3 var(--display); letter-spacing: -0.02em; }
+  .faq__list summary::-webkit-details-marker { display: none; }
+  .faq__list summary::after { content: "+"; font: 300 26px/0.9 var(--text); color: var(--muted); transition: rotate .25s var(--ease); }
+  .faq__list details[open] summary::after { rotate: 45deg; }
+  .faq__list p { color: var(--muted); padding: 0 40px 22px 0; }
+  @media (max-width: 799px) { .faq { grid-template-columns: 1fr; gap: 24px; } }
+
+  /* 7. pedir cita */
+  .book { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .card { background: #fff; border-radius: var(--r-xl); padding: clamp(28px, 4vw, 48px); }
+  .book__info { display: flex; flex-direction: column; gap: 18px; }
+  .hours { display: grid; grid-template-columns: auto 1fr; gap: 8px 28px; font-size: 16px; }
+  .hours dt { color: var(--muted); }
+  .book__map { margin-top: auto; border-radius: var(--r-lg); overflow: hidden; aspect-ratio: 16 / 9; }
+  .book__map img { width: 100%; height: 100%; object-fit: cover; transition: scale .6s var(--ease); }
+  .book__map:hover img { scale: 1.03; }
+  form { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-content: start; }
+  .field { display: grid; gap: 6px; }
+  .field--full { grid-column: 1 / -1; }
+  label { font-size: 14px; font-weight: 500; letter-spacing: -0.01em; }
+  input, select { font: inherit; font-size: 17px; height: 50px; padding: 0 16px; border-radius: 12px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); width: 100%; transition: border-color .2s, box-shadow .2s; }
+  input:focus, select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px rgba(0, 102, 204, .15); }
+  .field__err { display: none; font-size: 13px; color: #c4122f; }
+  .field.is-bad .field__err { display: block; }
+  .field.is-bad input { border-color: #c4122f; }
+  form .btn { grid-column: 1 / -1; min-height: 50px; margin-top: 6px; }
+  .form-note { grid-column: 1 / -1; font-size: 13px; color: var(--muted); }
+  @media (max-width: 799px) { .book { grid-template-columns: 1fr; } }
+  @media (max-width: 459px) { form { grid-template-columns: 1fr; } }
+
+  /* pie */
+  footer { background: var(--surface); color: var(--muted); font-size: 12px; padding: 22px 0 34px; }
+  .foot__top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
+  .foot__top nav { display: flex; flex-wrap: wrap; gap: 8px 22px; color: var(--ink); }
+  .foot__legal { padding-top: 16px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
+  footer a:hover { text-decoration: underline; }
+
+  /* el giro y los movimientos ligados al scroll los decide quien navega; con movimiento reducido solo se quitan las transiciones */
+  @media (prefers-reduced-motion: reduce) {
+    .btn, .tile__img img, .book__map img, .statement .w, .stage canvas { transition: none; }
   }
 </style>
 </head>
 <body>
-<!-- deal: hero film (sin película: el póster es una foto, sin control de reproducción) · nav-centre · footer-dark ·
-     close-type · rhythm space · buttons solid · mark arc · palette white-link-blue (blanco de consultorio, azul de tinta clínica) ·
-     type instrument-serif · moment word-highlight (la declaración del presupuesto por escrito) -->
-<header class="nav nav--centre">
-  <div class="wrap nav__bar">
-    <a class="skip-link" href="#top">Saltar al contenido</a>
-    <a class="nav__logo" href="#top"><span class="mark" data-mark="arc" aria-hidden="true"></span>Estudio Dental Ayni</a>
+<a class="skip" href="#tratamientos">Saltar al contenido</a>
+
+<header class="nav nav--dark">
+  <div class="wrap">
+    <a class="logo" href="#implante" aria-label="Estudio Dental Ayni, inicio">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20a9 9 0 0 1 18 0" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/></svg>
+      Estudio Dental Ayni
+    </a>
     <nav class="nav__links" aria-label="Principal">
-      <div class="nav__item"><a class="nav__link" href="#tratamientos">Tratamientos</a></div>
-      <div class="nav__item"><a class="nav__link" href="#visita">Tu visita</a></div>
-      <div class="nav__item"><a class="nav__link" href="#preguntas">Preguntas</a></div>
-      <div class="nav__item"><a class="nav__link" href="#citas">Citas</a></div>
+      <a href="#implante">Implantes</a>
+      <a href="#tratamientos">Tratamientos</a>
+      <a href="#visita">Tu visita</a>
+      <a href="#preguntas">Preguntas</a>
     </nav>
-    <div class="nav__actions">
-      <a class="btn btn--primary" href="#citas">Pedir cita</a>
-    </div>
-    <button class="nav__toggle" type="button" aria-expanded="false" aria-label="Menú"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5h14M2 13h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+    <a class="btn btn--sm" href="#citas">Pedir cita</a>
   </div>
 </header>
 
-<main id="top">
-  <section class="hero hero--film" data-enter aria-labelledby="hero-h">
-    <div class="wrap"><div class="hero-text hero__in">
-      <div class="hero__media hero__fill">
-        <img src="assets/img/photo-f137407235-1280.jpg" width="1280" height="962" alt="Sala de tratamiento con un sillón dental azul, la lámpara y la bandeja junto a la ventana" style="--ly-pos: 50% 40%; --ly-pos-phone: 40% 50%" fetchpriority="high" decoding="async" data-phone-fill data-source="stand-in" data-subject="sala de tratamiento">
-        <div class="hero__over">
-          <div>
-            <h1 id="hero-h">Clínica dental en Sopocachi, La Paz</h1>
-            <p class="hero__lead">Limpieza <span data-assumed>desde Bs 150</span>, coronas, implantes y odontología para niños. La primera evaluación no tiene costo.</p>
-            <div class="btn-row"><a class="btn btn--primary" href="#citas">Pedir cita</a></div>
-          </div>
+<main>
+  <!-- 1. Implante en 3D: hecho con Three.js a partir de formas propias; gira y se separa en sus tres piezas con el scroll -->
+  <section id="implante" aria-labelledby="hero-h">
+    <div class="stage">
+      <div class="fallback"><img src="assets/img/photo-f62359936.jpg" alt="Modelo de mandíbula con implantes dentales" width="1280" height="853"></div>
+      <div class="stage__glow"></div>
+      <canvas aria-label="Implante dental en 3D: tornillo de titanio, pilar y corona de porcelana" role="img"></canvas>
+      <span class="part" data-part="corona">Corona de porcelana</span>
+      <span class="part" data-part="pilar">Pilar</span>
+      <span class="part" data-part="implante">Implante de titanio</span>
+      <div class="panels">
+        <div class="panel" data-from="0" data-to="0.2">
+          <p class="eyebrow">Estudio Dental Ayni · Sopocachi, La Paz</p>
+          <h1 id="hero-h" class="t-hero">Clínica dental en <span class="grad">Sopocachi.</span></h1>
+          <p class="t-lead">Implantes, coronas y limpieza con precisión de laboratorio. La primera evaluación no tiene costo.</p>
+          <div class="actions"><a class="btn" href="#citas">Pedir cita</a><a class="more" href="#tratamientos">Ver tratamientos</a></div>
+        </div>
+        <div class="panel" data-from="0.24" data-to="0.48">
+          <p class="eyebrow">Implantes</p>
+          <h2 class="t-xl">Tres piezas.<br>Un diente nuevo.</h2>
+          <p class="t-lead">Un tornillo de titanio reemplaza la raíz, el pilar lo une y una corona de porcelana hecha a tu medida completa la pieza.</p>
+        </div>
+        <div class="panel" data-from="0.5" data-to="0.74">
+          <p class="eyebrow">Titanio de grado médico</p>
+          <h2 class="t-xl">Firme como tu propio diente.</h2>
+          <p class="t-lead">En 3 a 6 meses el hueso crece alrededor del implante y lo deja fijo. Después colocamos la corona.</p>
+          <p class="price" data-assumed>Implante con corona desde Bs 6.000</p>
+        </div>
+        <div class="panel" data-from="0.78" data-to="1.5">
+          <p class="eyebrow">Porcelana a tu medida</p>
+          <h2 class="t-xl">Del tono exacto de tu sonrisa.</h2>
+          <p class="t-lead">Elegimos el color contigo, diente por diente, para que nadie note cuál es el nuevo.</p>
+          <div class="actions"><a class="btn" href="#citas">Pedir cita</a></div>
         </div>
       </div>
-    </div></div>
-  </section>
-
-  <section class="section" id="tratamientos" style="--hm: 2" aria-labelledby="trat-h">
-    <div class="wrap">
-      <div class="grid head-row">
-        <h2 class="span-6" id="trat-h">Tratamientos dentales y precios</h2>
-        <p class="span-6 start-7">Precios desde, en bolivianos. El costo final sale de tu evaluación.</p>
-      </div>
-      <div class="grid grid--top fill" data-peek>
-        <ul class="rows span-6">
-          <li data-peek-to="limpieza" tabindex="0"><span class="rows__name">Limpieza y control</span><p>Revisión completa y limpieza con ultrasonido, unos 45 minutos.</p><span class="rows__value" data-assumed>desde Bs 150</span></li>
-          <li data-peek-to="coronas" tabindex="0"><span class="rows__name">Coronas y carillas</span><p>Piezas de porcelana hechas a la medida de tu mordida.</p><span class="rows__value" data-assumed>desde Bs 1.200</span></li>
-          <li data-peek-to="implantes" tabindex="0"><span class="rows__name">Implantes</span><p>Una pieza perdida reemplazada con tornillo de titanio y corona.</p><span class="rows__value" data-assumed>desde Bs 6.000</span></li>
-          <li data-peek-to="endodoncia" tabindex="0"><span class="rows__name">Endodoncia</span><p>Tratamiento de conducto con radiografía panorámica incluida.</p><span class="rows__value" data-assumed>desde Bs 700</span></li>
-          <li data-peek-to="ninos" tabindex="0"><span class="rows__name">Odontología para niños</span><p>Primera visita sin apuro, desde los 3 años.</p><span class="rows__value" data-assumed>desde Bs 120</span></li>
-        </ul>
-        <div class="frame frame--photo frame--fill span-6 start-7">
-          <img class="frame__img" data-peek-for="limpieza" src="assets/img/photo-f38953744.jpg" width="1280" height="853" alt="Una odontóloga con lentes y mascarilla limpia los dientes de una paciente" decoding="async" data-source="stand-in" data-subject="limpieza dental">
-          <img class="frame__img" data-peek-for="coronas" src="assets/img/photo-f29462631.jpg" width="1280" height="1103" alt="Modelo de yeso con una fila de coronas blancas de porcelana" decoding="async" data-source="stand-in" data-subject="coronas" hidden>
-          <img class="frame__img" data-peek-for="implantes" src="assets/img/photo-f62359936.jpg" width="1280" height="853" alt="Manos sosteniendo un modelo de mandíbula con implantes dentales" decoding="async" data-source="stand-in" data-subject="implantes" hidden>
-          <img class="frame__img" data-peek-for="endodoncia" src="assets/img/photo-f102866603.jpg" width="1280" height="681" alt="Radiografía panorámica de una dentadura completa" decoding="async" data-source="stand-in" data-subject="radiografía" hidden>
-          <img class="frame__img" data-peek-for="ninos" src="assets/img/photo-f197684384.jpg" width="1280" height="853" alt="Una odontóloga sonriente atiende a un niño sentado en una silla blanca" decoding="async" data-source="stand-in" data-subject="odontología infantil" hidden>
-        </div>
-      </div>
+      <p class="scroll-hint" aria-hidden="true">Desliza</p>
     </div>
   </section>
 
-  <!-- word-highlight: one statement in its own section, one strong word in <strong> -->
-  <section class="section statement" id="presupuesto" data-moment="word-highlight" aria-label="Cómo trabajamos">
+  <!-- 2. Tratamientos -->
+  <section class="light" id="tratamientos" aria-labelledby="trat-h">
     <div class="wrap">
-      <p class="t-label">Cómo trabajamos</p>
-      <p class="mo-wh__text">Antes de tocar un diente te mostramos la radiografía, te explicamos lo que vemos y te damos el presupuesto <strong>por escrito</strong>. Si no te convence, la evaluación no te cuesta nada.</p>
-    </div>
-  </section>
-
-  <section class="section steps" id="visita" style="--hm: 2" aria-labelledby="visita-h">
-    <div class="wrap">
-      <div class="section-head"><h2 id="visita-h">Tu primera visita en 3 pasos</h2></div>
-      <div class="grid">
-        <article class="card card--row span-4">
-          <span class="step-num">1</span>
-          <h3>Pide tu cita</h3>
-          <p>Elige día y hora en el formulario. Te respondemos por correo el mismo día hábil.</p>
-          <div class="panel"><img class="frame__img" src="assets/img/photo-f12532652.jpg" width="1280" height="962" alt="Consultorio con un sillón dental gris y muebles blancos" loading="lazy" decoding="async" data-source="stand-in" data-subject="consultorio"></div>
+      <div class="head">
+        <p class="eyebrow">Tratamientos</p>
+        <h2 id="trat-h" class="t-xl">Todo lo que tu sonrisa necesita.</h2>
+        <p class="t-lead">Precios desde, en bolivianos. El costo final sale de tu evaluación.</p>
+      </div>
+      <div class="tiles">
+        <article class="tile tile--wide" data-scroll>
+          <div class="tile__img"><img src="assets/img/photo-f38953744.jpg" width="1280" height="853" alt="Una odontóloga con lentes y mascarilla limpia los dientes de una paciente" loading="lazy"></div>
+          <div class="tile__body"><h3>Limpieza y control</h3><p>Revisión completa y limpieza con ultrasonido, unos 45 minutos.</p><p class="tile__price" data-assumed>Desde Bs 150</p></div>
         </article>
-        <article class="card card--row span-4">
-          <span class="step-num">2</span>
-          <h3>Recibe tu evaluación</h3>
-          <p>Revisión, radiografía y un plan con precio por escrito, sin costo.</p>
-          <div class="panel"><img class="frame__img" src="assets/img/photo-f169547285.jpg" width="1280" height="853" alt="Una odontóloga con guantes azules revisa la boca de un niño bajo la lámpara" loading="lazy" decoding="async" data-source="stand-in" data-subject="evaluación"></div>
+        <article class="tile tile--wide" data-scroll>
+          <div class="tile__img"><img src="assets/img/photo-f29462631.jpg" width="1280" height="1103" alt="Modelo de yeso con una fila de coronas blancas de porcelana" loading="lazy"></div>
+          <div class="tile__body"><h3>Coronas y carillas</h3><p>Porcelana hecha a la medida de tu mordida.</p><p class="tile__price" data-assumed>Desde Bs 1.200</p></div>
         </article>
-        <article class="card card--row span-4">
-          <span class="step-num">3</span>
-          <h3>Empieza el tratamiento</h3>
-          <p>Cada paciente recibe instrumental esterilizado y sellado en su bolsa.</p>
-          <div class="panel"><img class="frame__img" src="assets/img/photo-f14101213.jpg" width="1280" height="853" alt="Instrumental dental en bolsas de esterilización selladas sobre una bandeja" loading="lazy" decoding="async" data-source="stand-in" data-subject="instrumental esterilizado"></div>
+        <article class="tile" data-scroll>
+          <div class="tile__img"><img src="assets/img/photo-f62359936.jpg" width="1280" height="853" alt="Manos sosteniendo un modelo de mandíbula con implantes dentales" loading="lazy"></div>
+          <div class="tile__body"><h3>Implantes</h3><p>Una pieza perdida, reemplazada con titanio y corona.</p><p class="tile__price" data-assumed>Desde Bs 6.000</p></div>
+        </article>
+        <article class="tile" data-scroll>
+          <div class="tile__img"><img src="assets/img/photo-f102866603.jpg" width="1280" height="681" alt="Radiografía panorámica de una dentadura completa" loading="lazy"></div>
+          <div class="tile__body"><h3>Endodoncia</h3><p>Tratamiento de conducto con radiografía panorámica.</p><p class="tile__price" data-assumed>Desde Bs 700</p></div>
+        </article>
+        <article class="tile" data-scroll>
+          <div class="tile__img"><img src="assets/img/photo-f197684384.jpg" width="1280" height="853" alt="Una odontóloga sonriente atiende a un niño sentado en una silla blanca" loading="lazy"></div>
+          <div class="tile__body"><h3>Odontología para niños</h3><p>Primera visita sin apuro, desde los 3 años.</p><p class="tile__price" data-assumed>Desde Bs 120</p></div>
         </article>
       </div>
     </div>
   </section>
 
-  <section class="section" id="preguntas" aria-labelledby="faq-h">
-    <div class="wrap grid">
-      <div class="span-6 stack-4">
-        <h2 id="faq-h">Preguntas sobre tu tratamiento dental</h2>
-        <p class="muted">Lo que más nos preguntan antes de la primera cita.</p>
-        <a class="link" href="mailto:hola@estudioayni.example">Escríbenos tu duda</a>
+  <!-- 3. La frase del presupuesto, palabra por palabra -->
+  <section class="statement" id="presupuesto" aria-label="Cómo trabajamos">
+    <div class="wrap">
+      <p data-words>Antes de tocar un diente te mostramos la radiografía, te explicamos lo que vemos y te damos el presupuesto <strong>por escrito.</strong> Si no te convence, la evaluación no te cuesta nada.</p>
+    </div>
+  </section>
+
+  <!-- 4. El consultorio -->
+  <section class="room" aria-labelledby="room-h">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">El consultorio</p>
+        <h2 id="room-h" class="t-xl">Un consultorio pensado para que estés tranquilo.</h2>
       </div>
-      <div class="span-6 start-7">
-        <div class="frame frame--photo faq-photo"><img class="frame__img" src="assets/img/photo-f196789451.jpg" width="1280" height="853" alt="Instrumental dental ordenado sobre una mesa celeste, listo para un tratamiento" loading="lazy" decoding="async" data-source="stand-in" data-subject="instrumental"></div>
-        <div class="faq">
+      <div class="room__frame" data-scroll>
+        <div class="room__img" data-scroll><img src="assets/img/photo-f137407235-1280.jpg" width="1280" height="962" alt="Sala de tratamiento con un sillón dental azul, la lámpara y la bandeja de instrumentos" loading="lazy"></div>
+      </div>
+      <div class="facts">
+        <div><strong>Sin costo</strong><span>La primera evaluación, con radiografía.</span></div>
+        <div><strong>Por escrito</strong><span>El presupuesto, antes de empezar.</span></div>
+        <div><strong>Sellado</strong><span>Instrumental esterilizado para cada paciente.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Tu primera visita -->
+  <section class="light dark" id="visita" aria-labelledby="visita-h">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Tu primera visita</p>
+        <h2 id="visita-h" class="t-xl">Tres pasos. Sin sorpresas.</h2>
+      </div>
+      <div class="steps">
+        <article class="step" data-scroll>
+          <div class="step__body"><p class="step__num">01</p><h3>Pide tu cita</h3><p>Elige día y turno en el formulario. Te respondemos el mismo día hábil.</p></div>
+          <img src="assets/img/photo-f12532652.jpg" width="1280" height="962" alt="Consultorio con un sillón dental gris y muebles blancos" loading="lazy">
+        </article>
+        <article class="step" data-scroll>
+          <div class="step__body"><p class="step__num">02</p><h3>Recibe tu evaluación</h3><p>Revisión, radiografía y un plan con precio por escrito, sin costo.</p></div>
+          <img src="assets/img/photo-f169547285.jpg" width="1280" height="853" alt="Una odontóloga con guantes azules revisa la boca de un niño bajo la lámpara" loading="lazy">
+        </article>
+        <article class="step" data-scroll>
+          <div class="step__body"><p class="step__num">03</p><h3>Empieza el tratamiento</h3><p>Con instrumental esterilizado y sellado en su bolsa para cada paciente.</p></div>
+          <img src="assets/img/photo-f14101213.jpg" width="1280" height="853" alt="Instrumental dental en bolsas de esterilización selladas sobre una bandeja" loading="lazy">
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Preguntas -->
+  <section class="light" id="preguntas" aria-labelledby="faq-h">
+    <div class="wrap faq">
+      <div>
+        <p class="eyebrow">Preguntas</p>
+        <h2 id="faq-h" class="t-lg" style="margin-top:12px">Lo que nos preguntan antes de la primera cita.</h2>
+        <p style="margin-top:20px"><a class="more" href="mailto:hola@estudioayni.example">Escríbenos tu duda</a></p>
+      </div>
+      <div class="faq__list">
         <details open><summary>¿La primera evaluación tiene costo?</summary><p>No. Incluye la revisión, la radiografía y el presupuesto por escrito.</p></details>
-        <details open><summary>¿Atienden urgencias?</summary><p>Sí. Si tienes dolor fuerte, un golpe o una pieza rota, escríbenos y te damos un espacio el mismo día.</p></details>
-        <details open><summary>¿Cómo puedo pagar?</summary><p>Efectivo, tarjeta, transferencia o QR. Los tratamientos largos se pueden pagar en cuotas.</p></details>
-        <details open><summary>¿Desde qué edad atienden a niños?</summary><p>Desde los 3 años. La primera visita es corta y sirve para que el niño conozca el consultorio.</p></details>
-        </div>
+        <details><summary>¿Atienden urgencias?</summary><p>Sí. Si tienes dolor fuerte, un golpe o una pieza rota, escríbenos y te damos un espacio el mismo día.</p></details>
+        <details><summary>¿Cuánto dura un implante?</summary><p>Con buena higiene y controles cada seis meses, un implante puede durar muchos años. La corona se puede cambiar si se desgasta.</p></details>
+        <details><summary>¿Cómo puedo pagar?</summary><p>Efectivo, tarjeta, transferencia o QR. Los tratamientos largos se pueden pagar en cuotas.</p></details>
+        <details><summary>¿Desde qué edad atienden a niños?</summary><p>Desde los 3 años. La primera visita es corta y sirve para que el niño conozca el consultorio.</p></details>
       </div>
     </div>
   </section>
 
-  <section class="section" id="citas" style="--hm: 2" aria-labelledby="citas-h">
-    <div class="wrap grid fill">
-      <div class="span-6 stack-4 citas-info">
-        <h2 id="citas-h">Pide tu cita en Sopocachi</h2>
-        <p>Te respondemos por correo el mismo día hábil con la hora confirmada.</p>
-        <div class="citas-where">
-          <div class="stack-4"><address>Sopocachi<br>La Paz</address>
-          <a class="link" href="https://www.openstreetmap.org/search?query=Sopocachi%20La%20Paz">Ver la zona</a></div>
-          <dl class="hours" data-tz="America/La_Paz" data-assumed><dt data-days="1-5">Lunes a viernes</dt><dd>8:30 a 19:00</dd><dt data-days="6">Sábado</dt><dd>9:00 a 13:00</dd><dt data-days="0">Domingo</dt><dd>Cerrado</dd></dl>
-        </div>
-        <a class="m-zoom citas-photo" href="https://www.openstreetmap.org/search?query=Sopocachi%20La%20Paz" aria-label="Ver Sopocachi en el mapa"><img src="assets/img/photo-f175201765-960.jpg" width="960" height="539" alt="Edificios y casas de Sopocachi con las montañas de La Paz al fondo" loading="lazy" decoding="async" data-source="stand-in" data-subject="Sopocachi"></a>
+  <!-- 7. Pedir cita -->
+  <section class="light" id="citas" aria-labelledby="citas-h" style="padding-top:0">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Citas</p>
+        <h2 id="citas-h" class="t-xl">Tu primera evaluación es sin costo.</h2>
+        <p class="t-lead">Te respondemos por correo el mismo día hábil con la hora confirmada.</p>
       </div>
-      <div class="span-6 start-7">
-        <form class="form form-card" action="mailto:citas@estudioayni.example" method="post" enctype="text/plain" data-endpoint="" data-sent="Tu pedido de cita llegó. Te respondemos el mismo día hábil." novalidate>
-          <div class="field"><label for="f-name">Nombre</label>
-            <input id="f-name" name="nombre" type="text" autocomplete="name" required aria-describedby="f-name-err">
-            <p class="field__error" id="f-name-err" hidden>Escribe tu nombre y apellido.</p></div>
-          <div class="field"><label for="f-email">Correo</label>
-            <input id="f-email" name="correo" type="email" autocomplete="email" inputmode="email" required aria-describedby="f-email-err">
-            <p class="field__error" id="f-email-err" hidden>Escribe un correo con @, como nombre@ejemplo.com.</p></div>
-          <div class="field field--full"><label for="f-trat">Tratamiento</label>
-            <select id="f-trat" name="tratamiento"><option>Evaluación sin costo</option><option>Limpieza y control</option><option>Coronas y carillas</option><option>Implantes</option><option>Endodoncia</option><option>Odontología para niños</option><option>Urgencia</option></select></div>
-          <div class="field"><label for="f-date">Día</label>
-            <input id="f-date" name="dia" type="text" autocomplete="off" required aria-describedby="f-date-err">
-            <p class="field__error" id="f-date-err" hidden>Escribe el día que prefieres.</p></div>
-          <div class="field"><label for="f-time">Turno</label>
-            <select id="f-time" name="turno"><option>Mañana</option><option>Tarde</option></select></div>
-          <div class="btn-row"><button class="btn btn--primary" type="submit">Pedir cita</button></div>
-          <p class="form__status" role="status" data-form-status></p>
-          <p class="t-small muted">Usamos tu correo solo para confirmar la cita.</p>
-        </form>
+      <div class="book">
+        <div class="card book__info">
+          <h3 class="t-lg">Sopocachi, La Paz</h3>
+          <a class="more" href="https://www.openstreetmap.org/search?query=Sopocachi%20La%20Paz">Ver la zona</a>
+          <dl class="hours" data-assumed>
+            <dt>Lunes a viernes</dt><dd>8:30 a 19:00</dd>
+            <dt>Sábado</dt><dd>9:00 a 13:00</dd>
+            <dt>Domingo</dt><dd>Cerrado</dd>
+          </dl>
+          <a class="book__map" href="https://www.openstreetmap.org/search?query=Sopocachi%20La%20Paz" aria-label="Ver Sopocachi en el mapa"><img src="assets/img/photo-f175201765-960.jpg" width="960" height="539" alt="Edificios de Sopocachi con las montañas de La Paz al fondo" loading="lazy"></a>
+        </div>
+        <div class="card">
+          <form id="cita-form" novalidate>
+            <div class="field"><label for="f-name">Nombre</label><input id="f-name" name="nombre" autocomplete="name" required><span class="field__err">Escribe tu nombre.</span></div>
+            <div class="field"><label for="f-email">Correo</label><input id="f-email" name="correo" type="email" autocomplete="email" inputmode="email" required><span class="field__err">Escribe un correo con @.</span></div>
+            <div class="field field--full"><label for="f-trat">Tratamiento</label>
+              <select id="f-trat" name="tratamiento"><option>Evaluación sin costo</option><option>Limpieza y control</option><option>Coronas y carillas</option><option>Implantes</option><option>Endodoncia</option><option>Odontología para niños</option><option>Urgencia</option></select></div>
+            <div class="field"><label for="f-date">Día</label><input id="f-date" name="dia" placeholder="Ej.: martes 25" required><span class="field__err">Escribe el día que prefieres.</span></div>
+            <div class="field"><label for="f-time">Turno</label><select id="f-time" name="turno"><option>Mañana</option><option>Tarde</option></select></div>
+            <button class="btn" type="submit">Pedir cita</button>
+            <p class="form-note">Usamos tu correo solo para confirmar la cita.</p>
+          </form>
+        </div>
       </div>
     </div>
   </section>
 </main>
 
-<footer class="footer closing footer--dark ground-inverse" id="contact" aria-labelledby="close-h">
+<footer>
   <div class="wrap">
-    <div class="closing__cta close--type">
-      <div class="section-head">
-        <h2 id="close-h">Tu primera evaluación es sin costo</h2>
-        <p>Lunes a viernes de 8:30 a 19:00 y sábados por la mañana.</p>
-      </div>
-      <a class="btn btn--primary btn--xl" href="#citas">Pedir cita<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
+    <div class="foot__top">
+      <strong style="color:var(--ink)">Estudio Dental Ayni</strong>
+      <nav aria-label="Pie de página"><a href="#implante">Implantes</a><a href="#tratamientos">Tratamientos</a><a href="#visita">Tu visita</a><a href="#preguntas">Preguntas</a><a href="#citas">Citas</a></nav>
     </div>
-    <div class="closing__links">
-      <div class="grid">
-        <div class="span-4 stack-4">
-          <a class="nav__logo footer__mark" href="#top"><span class="mark" data-mark="arc" aria-hidden="true"></span>Estudio Dental Ayni</a>
-        </div>
-        <div class="span-2 footer__col"><h3>Tratamientos</h3><ul><li><a href="#tratamientos">Limpieza</a></li><li><a href="#tratamientos">Implantes</a></li><li><a href="#tratamientos">Niños</a></li></ul></div>
-        <div class="span-2 footer__col"><h3>Tu visita</h3><ul><li><a href="#visita">Los 3 pasos</a></li><li><a href="#presupuesto">Presupuesto</a></li></ul></div>
-        <div class="span-2 footer__col"><h3>Preguntas</h3><ul><li><a href="#preguntas">Urgencias</a></li><li><a href="#preguntas">Formas de pago</a></li></ul></div>
-        <div class="span-2 footer__col"><h3>Citas</h3><ul><li><a href="#citas">Pedir cita</a></li><li><a href="#citas">Horarios</a></li></ul></div>
-      </div>
-      <div class="footer__legal">
-        <span>&copy; 2026 Estudio Dental Ayni · Clínica ficticia, proyecto de portafolio de <a href="../../index.html">Carlos Peralta</a></span>
-        <a class="credits" href="credits.html">Fotografías vía Wikimedia Commons</a>
-      </div>
+    <div class="foot__legal">
+      <span>© 2026 Estudio Dental Ayni · Clínica ficticia, proyecto de portafolio de <a href="../../index.html">Carlos Peralta</a></span>
+      <span><a href="credits.html">Fotografías vía Wikimedia Commons</a> · Modelo 3D hecho a mano con Three.js</span>
     </div>
   </div>
 </footer>
 
-<nav class="actionbar" aria-label="Acciones rápidas">
-  <a class="btn btn--primary" href="#citas">Pedir cita</a>
-</nav>
-
-<script type="module" src="assets/system.js"></script>
-<script type="module" src="assets/motion/motion.js"></script>
-<script type="module" src="assets/layout/layout.js"></script>
+<script type="module" src="implante.js"></script>
+<script type="module" src="scroll.js"></script>
 </body>
 </html>
